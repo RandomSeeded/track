@@ -18,6 +18,8 @@ function addTime(filename, hour) {
       throw e;
     }
   })(filename);
+  console.log('upcomingTimes', upcomingTimes);
+  console.log('filename', filename);
   const upcomingTimesWithNewTimeInserted = insertTime(upcomingTimes, hour);
   fs.writeFileSync(filename, _.join(upcomingTimesWithNewTimeInserted, '\n'));
 }

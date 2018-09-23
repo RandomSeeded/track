@@ -64,12 +64,6 @@ app.get('/auth/google/callback',
     return res.redirect('/');
   });
 
-// app.get('/',
-//   ensureAuthenticated,
-//   function(req, res) {
-//     return res.send('hello world');
-//   });
-
 app.use('/api/reminder', require('./routes/reminder'));
 app.listen(PORT);
 console.log(`app listening on ${PORT}`);

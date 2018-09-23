@@ -3,11 +3,12 @@ const express = require('express');
 const app = express();
 const expressValidation = require('express-validation');
 const Joi = require('joi');
+const path = require('path');
 
 const db = require('../db');
 const taskList = require('../util/taskList');
 
-const TASK_LIST_FILENAME = 'tasklist';
+const TASK_LIST_FILENAME = path.join(__dirname, '../tasklists/tasklist');
 
 app.post('/',
   // ensureAuthenticated,
@@ -23,7 +24,6 @@ app.post('/',
     // const nextTime = req.body.nextTime; // assume frequency is 24 hours for now
     const hour = req.body.hour; // just assume hour is in UTC for now I guess. Obviously shit but can be improved later.
     // const timezone = _.get(req.body, 'timezone');
-
 
     const collection = db.collection('reminders');
     await collection.insertOne({ hour });
