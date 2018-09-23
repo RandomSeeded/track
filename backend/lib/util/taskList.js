@@ -33,13 +33,19 @@ function writeTimesToFile(filename, times) {
   fs.writeFileSync(filename, stringified);
 }
 
+function removeAlreadyRunTasks(upcomingTimes, taskIds) {
+  return _.reject(upcomingTimes, upcomingTime => _.includes(taskIds, upcomingTime.taskId));
+}
+
 function removeTimes(filename, taskIds) {
   const upcomingTimes = getTimes(filename);
-  const remainingTimes = _.reject(upcomingTimes, upcomingTime => _.includes(taskIds, upcomingTime.taskId));
+  const remainingTimes = removeAlreadyRunTasks(upcomingTimes, taskIds);
+  writeTimesToFile(filename, remainingTimes);
 }
 
 module.exports = {
   insertTime,
   addTime,
   getTimes,
+  removeAlreadyRunTasks,
 };

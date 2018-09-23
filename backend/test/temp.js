@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import * as uuid from 'uuid';
 import * as path from 'path';
 
-import { addTime, insertTime } from '../lib/util/taskList';
+import { addTime, insertTime, removeAlreadyRunTasks } from '../lib/util/taskList';
 
 test.after(t => {
   // TODO (nw): avoid making infinite files on your hard drive by nuking the testFixtures directory between uses
@@ -66,5 +66,19 @@ test('addTime works even if the files does not exist', t => {
   addTime(testFileThatDoesNotExist, 2, 1);
   const fromFile = _.map(JSON.parse(readFileSync(testFileThatDoesNotExist, 'utf8')), time => _.pick(time, ['time', 'reminderId']));
   t.deepEqual(fromFile, [{ time: 2, reminderId: 1 }]);
+  t.pass();
+});
+
+test('removeAlreadyRunTasks removes tasks from a task list', t => {
+  const origTimes = [
+    { time: 1, reminderId: 1, taskId: 1 },
+    { time: 4, reminderId: 2, taskId: 2 },
+    { time: 3, reminderId: 3, taskId: 3 },
+  ];
+  const res = removeAlreadyRunTasks(origTimes, [1]);
+  t.deepEqual(res, [
+    { time: 4, reminderId: 2, taskId: 2 },
+    { time: 3, reminderId: 3, taskId: 3 },
+  ]);
   t.pass();
 });

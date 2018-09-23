@@ -10,6 +10,7 @@ const _ = require('lodash');
 const moment = require('moment');
 
 const { TASK_LIST_FILENAME } = require('../definitions/tasklist');
+console.log('TASK_LIST_FILENAME', TASK_LIST_FILENAME);
 const taskList = require('../util/taskList');
 
 async function run() {
@@ -31,6 +32,7 @@ async function run() {
 
     // (call out to do the thing here)
   });
+
   const newTimes = _.map(tasksToRun, task => {
     return moment(task).add(24, 'hours').valueOf();
   });
