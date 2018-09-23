@@ -10,13 +10,14 @@ const moment = require('moment');
 const passport = require('passport');
 const util = require('util');
 
+const { ensureAuthenticated } = require('./util/authUtils');
+
 const {
   GOOGLE_CONSUMER_SECRET,
   GOOGLE_CONSUMER_KEY,
   expressSessionSecret,
 } = require('./secrets');
 const worker = require('./worker/worker');
-
 
 const PORT = 17792;
 
@@ -28,9 +29,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('body-parser').json());
 
-// TODO (nw): what do these do?
-// Among other things: they cause req.isAuthenticated() to return true
-// Also: we have a req.user object, so that's nice
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -54,6 +52,12 @@ app.get('/auth/google/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     return res.redirect('/');
+  });
+
+app.get('/',
+  ensureAuthenticated,
+  (req, res) => {
+    res.send('hello world');
   });
 
 app.use('/api/reminder', require('./routes/reminder'));
