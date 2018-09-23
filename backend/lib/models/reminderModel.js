@@ -13,7 +13,7 @@ async function query(query) {
 
 async function remove(id) {
   collection = collection || (await db()).collection('reminders');
-  return await collection.remove({_id: id });
+  return await collection.deleteOne({_id: id });
 }
 
 module.exports = {

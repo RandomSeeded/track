@@ -22,7 +22,9 @@ async function run() {
       _id: uuid.v4(),
     }, task);
   });
+  console.log(`${moment().format()}: Sending ${_.size(tasksWithNewTimes)} alerts`);
   // TODO (nw): actual sending of the alerts goes here
+
   await Promise.all(_.map(tasksWithNewTimes, task => reminderModel.add(task)));
   await Promise.all(_.map(tasksToRun, task => reminderModel.remove(task._id)));
 }

@@ -13,7 +13,7 @@ const reminderModel = require('../models/reminderModel');
 const { ensureAuthenticated } = require('../util/authUtils');
 
 app.post('/',
-  ensureAuthenticated,
+  // ensureAuthenticated,
   expressValidation({
     body: {
       nextTime: Joi.number().required(),
@@ -26,11 +26,11 @@ app.post('/',
     },
   }),
   async function(req, res, next) {
-    const userId = _.get(req.user, 'profileId');
+    const user = { googleId: '101568670801818828933' }; // temp hack - hardcode a user
     const { nextTime, frequency } = req.body;
     const reminderId = uuid.v4();
-    await reminderModel.add({ _id: reminderId, nextTime, frequency });
-    res.send(200);
+    await reminderModel.add({ _id: reminderId, nextTime, frequency, user });
+    res.sendStatus(200);
   });
 
 module.exports = app;
