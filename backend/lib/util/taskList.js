@@ -7,7 +7,16 @@ function insertTime(upcomingTimes, hour) {
 }
 
 function addTime(filename, hour) {
-  const upcomingTimes = _.split(fs.readFileSync(filename, 'utf8'), '\n');
+  const upcomingTimes = (filename => {
+    try {
+      return _.split(fs.readFileSync(filename, 'utf8'), '\n');
+    } catch(e) {
+      if (e.code === 'ENOENT') {
+        return [];
+      }
+      throw e;
+    }
+  })(filename);
   const upcomingTimesWithNewTimeInserted = insertTime(upcomingTimes, hour);
   fs.writeFileSync(filename, _.join(upcomingTimesWithNewTimeInserted, '\n'));
 }
