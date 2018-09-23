@@ -1,7 +1,10 @@
 'use strict';
 
+const _ = require('lodash');
 const express = require('express');
+const expressValidation = require('express-validation');
 const app = express();
+const Joi = require('joi');
 const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const {
@@ -9,6 +12,10 @@ const {
   GOOGLE_CONSUMER_KEY,
   expressSessionSecret,
 } = require('./secrets');
+const util = require('util');
+const moment = require('moment');
+
+let db;
 
 const PORT = 17792;
 
@@ -17,6 +24,7 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: expressSessionSecret, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(require('body-parser').json());
 
 // TODO (nw): what do these do?
 // Among other things: they cause req.isAuthenticated() to return true
@@ -59,5 +67,52 @@ app.get('/',
     return res.send('hello world');
   });
 
+
+app.post('/api/reminder',
+  // ensureAuthenticated,
+  expressValidation({
+    body: {
+      // nextTime: Joi.number().required(),
+      hour: Joi.number().required(),
+      // timezone: Joi.string().required(), // this is required kinda otherwise it will break with DST and stuff. Screw that not MVP.
+    },
+  }),
+  async function(req, res, next) {
+    const userId = _.get(req.user, 'profileId');
+    // const nextTime = req.body.nextTime; // assume frequency is 24 hours for now
+    const hour = req.body.hour; // just assume hour is in UTC for now I guess. Obviously shit but can be improved later.
+    // const timezone = _.get(req.body, 'timezone');
+
+
+    // Things we need to do:
+    // 1) add the next time to the task list (along with the userId);
+    // 2) save the time (which hour per day) to the database
+
+    const collection = db.collection('reminders');
+    await collection.insertOne({ hour });
+
+    // (Still need to add the next time to the task list when such a task list exists)
+    res.send(200);
+  });
+
 app.listen(PORT);
 console.log(`app listening on ${PORT}`);
+
+const mongodb = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
+const dbName = 'track';
+
+process.on('uncaughtException', e => {
+  console.log('e', e);
+});
+process.on('unhandledRejection', e => {
+  console.log('e', e);
+});
+
+(async function initializeDB() {
+  const client = await MongoClient.connect('mongodb://localhost:27017');
+  const dbName = 'track';
+  db = client.db(dbName);
+  const collection = db.collection('reminders');
+  const res = await collection.insertOne({ a: 3 });
+})();
