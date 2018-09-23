@@ -3,22 +3,25 @@
 const _ = require('lodash');
 const express = require('express');
 const expressValidation = require('express-validation');
-const app = express();
+const fs = require('fs');
 const Joi = require('joi');
-const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const moment = require('moment');
+const passport = require('passport');
 const {
   GOOGLE_CONSUMER_SECRET,
   GOOGLE_CONSUMER_KEY,
   expressSessionSecret,
 } = require('./secrets');
 const util = require('util');
-const moment = require('moment');
+const TASK_LIST_FILENAME = 'tasklist';
+const taskList = require('./util/taskList');
 
 let db;
 
 const PORT = 17792;
 
+const app = express();
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: expressSessionSecret, resave: true, saveUninitialized: true }));
@@ -67,7 +70,6 @@ app.get('/',
     return res.send('hello world');
   });
 
-
 app.post('/api/reminder',
   // ensureAuthenticated,
   expressValidation({
@@ -91,7 +93,11 @@ app.post('/api/reminder',
     const collection = db.collection('reminders');
     await collection.insertOne({ hour });
 
-    // (Still need to add the next time to the task list when such a task list exists)
+    // (Still need to add the next time to the task list when such a task list exists...right?)
+    // How would such a task list work? It would need to be a shared data structure between the two processes, which is not ideal.
+    // In Erlang world you'd send a message to another process.
+    // Here our shared data structure could/should probably just be a file. Only questionable part is: can two things read from a file simultaneously? Yeah but could be wonky if we write while the daemon reads. Oh well. MVP.
+    taskList.addTime(hour);
     res.send(200);
   });
 
