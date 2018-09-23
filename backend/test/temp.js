@@ -1,8 +1,19 @@
 import test from 'ava';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, unlinkSync, writeFileSync } from 'fs';
 import * as _ from 'lodash';
+import { v4 } from 'uuid';
 
 import { addTime, insertTime } from '../lib/util/taskList';
+
+const testFileThatDoesNotExist = 'testTaskListDoesntExist';
+
+test.afterEach(t => {
+  try {
+    unlinkSync(testFileThatDoesNotExist);
+  } catch(e) {
+    if (e.code !== 'ENOENT') throw e;
+  }
+});
 
 test('insertTime inserts times in correct place in array', t => {
   const origTimes = [1,4,3];
@@ -20,10 +31,17 @@ test('insertTime handles strings', t => {
 
 test('addTime modifies a file to add time', t => {
   const origFile = [1,4,3];
-  const testFileName = 'testTaskList';
-  writeFileSync(testFileName, _.join(origFile, '\n'));
-  addTime(testFileName, 2);
-  const fromFile = _.split(readFileSync(testFileName, 'utf8'), '\n');
+  const testFileThatExists = 'testTaskList';
+  writeFileSync(testFileThatExists, _.join(origFile, '\n'));
+  addTime(testFileThatExists, 2);
+  const fromFile = _.split(readFileSync(testFileThatExists, 'utf8'), '\n');
   t.deepEqual(fromFile, ['1', '2', '3', '4']);
+  t.pass();
+});
+
+test('addTime works even if the files does not exist', t => {
+  addTime(testFileThatDoesNotExist, 2);
+  const fromFile = _.split(readFileSync(testFileThatDoesNotExist, 'utf8'), '\n');
+  t.deepEqual(fromFile, ['2']);
   t.pass();
 });

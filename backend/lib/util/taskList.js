@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const fs = require('fs');
+const path = require('path');
 
 function insertTime(upcomingTimes, hour) {
   upcomingTimes.push(hour);
