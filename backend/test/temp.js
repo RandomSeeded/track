@@ -7,6 +7,7 @@ import * as path from 'path';
 import { addTime, insertTime } from '../lib/util/taskList';
 
 test.after(t => {
+  // TODO (nw): avoid making infinite files on your hard drive by nuking the testFixtures directory between uses
 });
 
 test('insertTime inserts times in correct place in array', t => {
