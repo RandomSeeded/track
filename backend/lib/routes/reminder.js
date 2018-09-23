@@ -4,11 +4,11 @@ const app = express();
 const expressValidation = require('express-validation');
 const Joi = require('joi');
 const path = require('path');
+const uuid = require('uuid');
 
 const db = require('../db');
 const taskList = require('../util/taskList');
-
-const TASK_LIST_FILENAME = path.join(__dirname, '../tasklists/tasklist');
+const { TASK_LIST_FILENAME } = require('../definitions/tasklist');
 
 app.post('/',
   // ensureAuthenticated,
@@ -26,9 +26,10 @@ app.post('/',
     // const timezone = _.get(req.body, 'timezone');
 
     const collection = db.collection('reminders');
-    await collection.insertOne({ hour });
+    const reminderId = uuid.v4();
+    await collection.insertOne({ _id: reminderId, hour });
 
-    taskList.addTime(TASK_LIST_FILENAME, hour);
+    taskList.addTime(TASK_LIST_FILENAME, hour, reminderId);
     res.send(200);
   });
 

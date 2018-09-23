@@ -13,12 +13,16 @@ const fs = require('fs');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const moment = require('moment');
 const passport = require('passport');
+const util = require('util');
+
 const {
   GOOGLE_CONSUMER_SECRET,
   GOOGLE_CONSUMER_KEY,
   expressSessionSecret,
 } = require('./secrets');
-const util = require('util');
+const worker = require('./worker/worker');
+
+
 const PORT = 17792;
 
 const app = express();

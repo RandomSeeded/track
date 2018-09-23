@@ -8,8 +8,6 @@ const db = {};
   const client = await MongoClient.connect('mongodb://localhost:27017');
   const dbName = 'track';
   _.extend(db, client.db(dbName));
-  const collection = db.collection('reminders');
-  const res = await collection.insertOne({ a: 3 });
 })();
 
 module.exports = db;
