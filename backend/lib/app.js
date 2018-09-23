@@ -1,11 +1,6 @@
 'use strict';
 
-process.on('uncaughtException', e => {
-  console.log('e', e);
-});
-process.on('unhandledRejection', e => {
-  console.log('e', e);
-});
+require('./util/exceptionHandlers');
 
 const _ = require('lodash');
 const express = require('express');
@@ -52,13 +47,6 @@ passport.use(new googleStrategy({
   done(null, { googleId: profile.id });
 }));
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  return res.redirect('/auth/google');
-}
-
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
 
 app.get('/auth/google/callback', 
@@ -71,4 +59,3 @@ app.get('/auth/google/callback',
 app.use('/api/reminder', require('./routes/reminder'));
 app.listen(PORT);
 console.log(`app listening on ${PORT}`);
-

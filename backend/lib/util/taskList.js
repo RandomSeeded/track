@@ -1,3 +1,11 @@
+// This approach is fundamentally dumb
+//
+// The better approach is simply:
+//
+// - have a database with reminders
+// - have each reminder store its frequency and when it should run next
+// - have the worker simply wake up every minute, run a query to see which things it should run next, run them all, update them all. Done.
+
 const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');

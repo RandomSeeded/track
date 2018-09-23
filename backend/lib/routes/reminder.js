@@ -9,27 +9,27 @@ const uuid = require('uuid');
 const db = require('../db');
 const taskList = require('../util/taskList');
 const { TASK_LIST_FILENAME } = require('../definitions/tasklist');
+const reminderModel = require('../models/reminderModel');
+const { ensureAuthenticated } = require('../util/authUtils');
 
 app.post('/',
-  // ensureAuthenticated,
+  ensureAuthenticated,
   expressValidation({
     body: {
-      // nextTime: Joi.number().required(),
-      hour: Joi.number().required(),
-      // timezone: Joi.string().required(), // this is required kinda otherwise it will break with DST and stuff. Screw that not MVP.
+      nextTime: Joi.number().required(),
+      frequency: Joi.number().required(),
+      // TODO (nw): how do you want to store reminders?
+      // For now - basically you have one set of questions per user
+      // whenever they go to that page they're presented with those questions
+      // So, for now, reminders are purely to send you texts
+      // And questions you can fill out whenever
     },
   }),
   async function(req, res, next) {
     const userId = _.get(req.user, 'profileId');
-    // const nextTime = req.body.nextTime; // assume frequency is 24 hours for now
-    const hour = req.body.hour; // just assume hour is in UTC for now I guess. Obviously shit but can be improved later.
-    // const timezone = _.get(req.body, 'timezone');
-
-    const collection = db.collection('reminders');
+    const { nextTime, frequency } = req.body;
     const reminderId = uuid.v4();
-    await collection.insertOne({ _id: reminderId, hour });
-
-    taskList.addTime(TASK_LIST_FILENAME, hour, reminderId);
+    await reminderModel.add({ _id: reminderId, nextTime, frequency });
     res.send(200);
   });
 

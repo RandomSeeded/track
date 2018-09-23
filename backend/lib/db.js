@@ -3,11 +3,15 @@ const mongodb = require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
 const dbName = 'track';
 
-const db = {};
-(async function initializeDB() {
+let connection;
+async function db() {
+  if (connection) {
+    return connection;
+  }
   const client = await MongoClient.connect('mongodb://localhost:27017');
   const dbName = 'track';
-  _.extend(db, client.db(dbName));
-})();
+  connection = client.db(dbName);
+  return connection;
+}
 
 module.exports = db;
