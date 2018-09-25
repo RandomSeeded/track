@@ -13,7 +13,12 @@ const uuid = require('uuid');
 const { TASK_LIST_FILENAME } = require('../definitions/tasklist');
 const taskList = require('../util/taskList');
 const reminderModel = require('../models/reminderModel');
+const questionModel = require('../models/questionModel');
 const twilio = require('../external/twilio');
+
+async function sendAlert(task) {
+  const questions = questionModel.query({ 'user.googleId': task.user.googleId });
+}
 
 async function run() {
   const tasksToRun = await reminderModel.query({ nextTime: { $lt: Date.now() }});
