@@ -61,5 +61,6 @@ app.get('/',
   });
 
 app.use('/api/reminder', require('./routes/reminder'));
+app.use('/api/questions', require('./routes/questions'));
 app.listen(PORT);
 console.log(`app listening on ${PORT}`);
