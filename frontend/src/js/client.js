@@ -1,12 +1,16 @@
-// class App extends React.Component {
-//   render() {
-//     return <p>React App</p>;
-//   }
-// }
-// 
-// ReactDOM.render(
-//   <App/>,
-//   document.getElementById('root')
-// );
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        Hello from react
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <App/>,
+  document.getElementById('root')
+);
 
 console.log('hi');
