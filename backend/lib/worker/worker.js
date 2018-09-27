@@ -19,11 +19,6 @@ const twilio = require('../external/twilio');
 async function sendAlert(task) {
   // You actually don't even need the question for now. Just send them a link to the home page. Bam. Done. The home page will be responsible for figuring out what the questions are.
   twilio.sendSMS('A link to the service would go here', '+18456610558');
-  // const questions = questionModel.query({ 'user.googleId': task.user.googleId });
-  // TODO (nw): stopping point
-  // What does a question look like?
-  // It has a text and a number and a userId (super MVP)
-  // Then, after that, we go ahead and make a UI page s.t. when you load the main page you're presented with the question and you can answer it. I think that'll work.
 }
 
 async function run() {

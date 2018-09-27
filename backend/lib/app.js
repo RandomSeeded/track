@@ -57,10 +57,13 @@ app.get('/auth/google/callback',
 app.get('/',
   ensureAuthenticated,
   (req, res) => {
+    const user = req.user;
+    console.log('user', user);
     res.send('hello world');
   });
 
 app.use('/api/reminder', require('./routes/reminder'));
 app.use('/api/questions', require('./routes/questions'));
+app.use('/api/answers', require('./routes/answers'));
 app.listen(PORT);
 console.log(`app listening on ${PORT}`);

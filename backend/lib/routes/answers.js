@@ -9,22 +9,26 @@ const uuid = require('uuid');
 const db = require('../db');
 const taskList = require('../util/taskList');
 const { TASK_LIST_FILENAME } = require('../definitions/tasklist');
-const reminderModel = require('../models/reminderModel');
+const answerModel = require('../models/answerModel');
 const { ensureAuthenticated } = require('../util/authUtils');
 
 app.post('/',
   ensureAuthenticated,
   expressValidation({
     body: {
-      nextTime: Joi.number().required(),
-      frequency: Joi.number().required(),
+      questionId: Joi.string().guid().required(),
+      answer: Joi.string().required(),
     },
   }),
   async function(req, res, next) {
     const user = req.user;
-    const { nextTime, frequency } = req.body;
-    const reminderId = uuid.v4();
-    await reminderModel.add({ _id: reminderId, nextTime, frequency, user });
+    const { questionId, answer } = req.body;
+    await answerModel.add({
+      _id: uuid.v4(),
+      questionId,
+      answer,
+      answeredAt: Date.now(),
+    });
     res.sendStatus(200);
   });
 
