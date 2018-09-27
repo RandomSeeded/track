@@ -14,10 +14,10 @@ const { ensureAuthenticated } = require('../util/authUtils');
 
 app.get('/',
   ensureAuthenticated,
-  async function(req, res, next) {
+  async (req, res) => {
     const user = req.user;
     const questions = await questionModel.query({ user });
-    res.send(questions);
+    return res.send(questions);
   });
 
 module.exports = app;

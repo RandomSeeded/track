@@ -8,9 +8,11 @@ const fs = require('fs');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const moment = require('moment');
 const passport = require('passport');
+const path = require('path');
 const util = require('util');
 
 const { ensureAuthenticated } = require('./util/authUtils');
+const questionModel = require('./models/questionModel');
 
 const {
   GOOGLE_CONSUMER_SECRET,
@@ -22,6 +24,7 @@ const worker = require('./worker/worker');
 const PORT = 17792;
 
 const app = express();
+
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: expressSessionSecret, resave: true, saveUninitialized: true }));
@@ -54,16 +57,16 @@ app.get('/auth/google/callback',
     return res.redirect('/');
   });
 
-app.get('/',
-  ensureAuthenticated,
-  (req, res) => {
-    const user = req.user;
-    console.log('user', user);
-    res.send('hello world');
-  });
-
 app.use('/api/reminder', require('./routes/reminder'));
 app.use('/api/questions', require('./routes/questions'));
 app.use('/api/answers', require('./routes/answers'));
+
+app.use(express.static(path.join(__dirname, '../../frontend')));
+
+// app.get('/',
+//   (req, res) => {
+//     return res.send('<p>Test</p>');
+//   });
+
 app.listen(PORT);
 console.log(`app listening on ${PORT}`);
