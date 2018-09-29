@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import * as axios from 'axios';
 
 class IndividualQuestion extends React.Component {
   // Bring individual questions down into here
@@ -17,44 +18,74 @@ class IndividualQuestion extends React.Component {
   }
 }
 
+class SubmitButton extends React.Component {
+  render() {
+    const disable = _.isEmpty(this.props.questions) || _.some(this.props.questions, question => !_.has(question, 'answer'));
+    return (<input type="submit" value="Answer" disabled={disable}/>);
+  }
+}
+
+class AllDone extends React.Component {
+  render() {
+    return <p>All Done</p>;
+  }
+}
+
 export class Today extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       questions: [],
     };
+    this.state.done = false;
   }
   render() {
-    const html = (
+    const form = (
       <form onSubmit={this.handleSubmit.bind(this)}>
         {this.state.questions.map((question, i) =>
           <IndividualQuestion question={question} key={i} handleChange={this.handleChange.bind(this, i)}/>
         )}
-        <input type="submit" value="Answer"/>
+        <SubmitButton questions={this.state.questions}/>
       </form>
     );
+    const allDone = (
+      <AllDone/>
+    );
+    const html = this.state.done ? allDone : form;
     return html;
   }
+
   async componentDidMount() {
     const res = await fetch('http://localhost:17792/api/questions');
     const questions = await res.json();
+    // Temp hack for dev
+    _.each(questions, question => {
+      question.answer = '0';
+    });
     this.setState({
       questions,
     });
   }
+
   handleChange(i, event) {
     const questions = this.state.questions;
-    questions[i].value = event.target.value;
+    questions[i].answer = event.target.value;
     this.setState({
       questions,
     });
   }
-  handleSubmit(event) {
+
+  async handleSubmit(event) {
     // Should be done as bulk, but NBD
-    _.each(this.state.questions, question => {
+    _.each(this.state.questions, async question => {
+      const body = {
+        questionId: question._id,
+        answer: question.answer,
+      }
+      await axios.post('http://localhost:17792/api/answers', body);
     });
-    const res = await fetch('http://localhost:17792/api/answers');
     event.preventDefault();
+    this.setState({ done: true });
   }
 }
 

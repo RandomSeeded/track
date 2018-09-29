@@ -28,8 +28,17 @@ app.post('/',
       questionId,
       answer,
       answeredAt: Date.now(),
+      user,
     });
     res.sendStatus(200);
+  });
+
+app.get('/',
+  ensureAuthenticated,
+  async (req, res, next) => {
+    const user = req.user;
+    const answers = await answerModel.query({ user });
+    res.send(answers);
   });
 
 module.exports = app;
