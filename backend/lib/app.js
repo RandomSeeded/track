@@ -48,6 +48,12 @@ passport.use(new googleStrategy({
   done(null, { googleId: profile.id });
 }));
 
+// CORS from webpack dev server
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
+  next();
+});
+
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
 
 app.get('/auth/google/callback', 
@@ -61,7 +67,9 @@ app.use('/api/reminder', require('./routes/reminder'));
 app.use('/api/questions', require('./routes/questions'));
 app.use('/api/answers', require('./routes/answers'));
 
-app.use(express.static(path.join(__dirname, '../../frontend')));
+app.use(express.static(path.join(__dirname, '../../frontend/dist/')));
+// app.get('*', (req, res, next) =>
+//   res.sendFile('/index.html', { root: path.join(__dirname, '../../frontend/src/') }));
 
 // app.get('/',
 //   (req, res) => {

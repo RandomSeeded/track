@@ -1,8 +1,6 @@
-// We are using node's native package 'path'
-// https://nodejs.org/api/path.html
 const path = require('path');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // Import our plugin -> ADDED IN THIS STEP
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Constant with our paths
 const paths = {
@@ -13,14 +11,16 @@ const paths = {
 
 // Webpack configuration
 module.exports = {
-  entry: path.join(paths.JS, 'client.js'),
+  entry: [path.join(paths.JS, 'client.js')], // TODO (nw): use only those polyfills we need
   output: {
     path: paths.DIST,
-    filename: 'app.bundle.js'
+    filename: 'app.bundle.js',
+    publicPath: '/',
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(paths.SRC, 'index.html'),
+      filename:  path.join(paths.DIST, 'index.html'),
     }),
   ],
   module: {
@@ -33,6 +33,9 @@ module.exports = {
         ],
       },
     ],
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   resolve: {
     extensions: ['.js', '.jsx'],
