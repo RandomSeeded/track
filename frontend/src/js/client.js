@@ -5,9 +5,11 @@ import { Nav } from './components/Nav';
 class App extends React.Component {
   render() {
     return (
-      <BrowserRouter>
-        <Nav/>
-      </BrowserRouter>
+      <div>
+        <BrowserRouter>
+          <Nav/>
+        </BrowserRouter>
+      </div>
     );
   }
 }

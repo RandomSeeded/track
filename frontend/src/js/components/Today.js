@@ -2,13 +2,12 @@ import * as _ from 'lodash';
 import * as axios from 'axios';
 
 class IndividualQuestion extends React.Component {
-  // Bring individual questions down into here
   constructor(props) {
     super(props);
   }
   render() {
     return (
-      <div key={this.props.key}>
+      <div>
         <label>{this.props.question.text}</label>
         <select onChange={this.props.handleChange}>
           {_.map(_.range(10), i => <option key={i}>{i}</option>)}
@@ -58,10 +57,12 @@ export class Today extends React.Component {
   async componentDidMount() {
     const res = await fetch('http://localhost:17792/api/questions');
     const questions = await res.json();
-    // Temp hack for dev
+
+    // Initialize answers to 0 - enables submit button immediately
     _.each(questions, question => {
       question.answer = '0';
     });
+
     this.setState({
       questions,
     });
@@ -76,7 +77,6 @@ export class Today extends React.Component {
   }
 
   async handleSubmit(event) {
-    // Should be done as bulk, but NBD
     _.each(this.state.questions, async question => {
       const body = {
         questionId: question._id,

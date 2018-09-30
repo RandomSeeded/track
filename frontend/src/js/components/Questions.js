@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import * as axios from 'axios';
+import * as uuid from 'uuid';
 
 class QuestionForm extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class QuestionForm extends React.Component {
     event.preventDefault();
     await axios.delete(`http://localhost:17792/api/questions/${this.state.questionId}`, {
     });
-    this.props.removeQuestion();
+    this.props.removeQuestion(this.props.listId);
   }
 
   async handleSubmit(event) {
@@ -70,7 +71,7 @@ export class Questions extends React.Component {
       <div>
         <ul>
           {_.map(this.state.questions, (question, i) =>
-            <QuestionForm question={question} key={i} listId={i} removeQuestion={this.removeQuestion.bind(this)}/>
+            <QuestionForm question={question} key={uuid.v4()} listId={i} removeQuestion={this.removeQuestion.bind(this)}/>
           )}
         </ul>
         <NewQuestionButton addQuestion={this.addQuestion.bind(this)}/>
@@ -93,7 +94,6 @@ export class Questions extends React.Component {
   }
 
   async removeQuestion(listId) {
-    console.log('removeQuestion called');
     const questions = [...this.state.questions];
     questions.splice(listId, 1);
     this.setState({

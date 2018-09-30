@@ -10,6 +10,7 @@ const db = require('../db');
 const taskList = require('../util/taskList');
 const { TASK_LIST_FILENAME } = require('../definitions/tasklist');
 const answerModel = require('../models/answerModel');
+const questionModel = require('../models/questionModel');
 const { ensureAuthenticated } = require('../util/authUtils');
 
 app.post('/',
@@ -33,12 +34,18 @@ app.post('/',
     res.sendStatus(200);
   });
 
-app.get('/',
+app.get('/full',
   ensureAuthenticated,
   async (req, res, next) => {
     const user = req.user;
     const answers = await answerModel.query({ user });
-    res.send(answers);
+    const questionIds = _(answers).map('questionId').uniq().value();
+    const questions = await questionModel.query({ _id: { $in: questionIds }});
+    const answersByQuestionId = _.groupBy(answers, 'questionId');
+    const questionsWithAnswers = _.map(questions, question =>
+      _.extend(question, { answers: answersByQuestionId[question._id] })
+    );
+    res.send(questionsWithAnswers);
   });
 
 module.exports = app;

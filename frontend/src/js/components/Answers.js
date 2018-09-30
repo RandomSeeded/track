@@ -1,8 +1,26 @@
 import * as _ from 'lodash';
+import * as uuid from 'uuid';
 
-class ListElement extends React.Component {
+export class AnswersForQuestion extends React.Component {
   render() {
-    return <li>{this.props.answer.answer}</li>
+    return (
+      <ul>
+        {_.map(this.props.answers, answer =>
+          <li key={uuid.v4()}>{answer.answer}</li>
+        )}
+      </ul>
+    );
+  }
+}
+
+export class QuestionDisplay extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>{this.props.text}</p>
+        <AnswersForQuestion answers={this.props.answers}/>
+      </div>
+    );
   }
 }
 
@@ -10,24 +28,24 @@ export class Answers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answers: [],
+      questionsWithAnswers: [],
     };
   }
   render() {
-    return _.isEmpty(this.state.answers) ? <p>Loading</p> : (
+    return (
       <ul>
-        {_.map(this.state.answers, (answer, i) =>
-          <ListElement answer={answer} key={i}/>
+        {_.map(this.state.questionsWithAnswers, question =>
+          <li key={uuid.v4()}><QuestionDisplay text={question.text} answers={question.answers}/></li>
         )}
       </ul>
     );
   }
 
   async componentDidMount() {
-    const res = await fetch('http://localhost:17792/api/answers');
-    const answers = await res.json();
+    const questionsWithAnswers = await (await fetch('http://localhost:17792/api/answers/full')).json();
+    console.log('questionsWithAnswers', JSON.stringify(questionsWithAnswers));
     this.setState({
-      answers,
+      questionsWithAnswers,
     });
   }
 }
