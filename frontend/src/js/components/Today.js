@@ -7,11 +7,13 @@ class IndividualQuestion extends React.Component {
   }
   render() {
     return (
-      <div>
-        <label>{this.props.question.text}</label>
-        <select onChange={this.props.handleChange}>
-          {_.map(_.range(10), i => <option key={i}>{i}</option>)}
-        </select>
+      <div className="field">
+        <label className="label">{this.props.question.text}</label>
+        <div className="select">
+          <select onChange={this.props.handleChange}>
+            {_.map(_.range(10), i => <option key={i}>{i}</option>)}
+          </select>
+        </div>
       </div>
     );
   }
@@ -20,7 +22,7 @@ class IndividualQuestion extends React.Component {
 class SubmitButton extends React.Component {
   render() {
     const disable = _.isEmpty(this.props.questions) || _.some(this.props.questions, question => !_.has(question, 'answer'));
-    return (<input type="submit" value="Answer" disabled={disable}/>);
+    return (<button type="submit" disabled={disable} className="button is-success">Answer</button>);
   }
 }
 
@@ -40,12 +42,14 @@ export class Today extends React.Component {
   }
   render() {
     const form = (
-      <form onSubmit={this.handleSubmit.bind(this)}>
-        {this.state.questions.map((question, i) =>
-          <IndividualQuestion question={question} key={i} handleChange={this.handleChange.bind(this, i)}/>
-        )}
-        <SubmitButton questions={this.state.questions}/>
-      </form>
+      <div className="section">
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          {this.state.questions.map((question, i) =>
+            <IndividualQuestion question={question} key={i} handleChange={this.handleChange.bind(this, i)}/>
+          )}
+          <SubmitButton questions={this.state.questions}/>
+        </form>
+      </div>
     );
     const allDone = (
       <AllDone/>

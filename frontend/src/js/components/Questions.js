@@ -14,11 +14,19 @@ class QuestionForm extends React.Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
-        <input value={this.state.text} onChange={this.handleChange.bind(this)}/>
-        <button type="submit">{this.state.submitted ? "Edit" : "Add New Question" }</button>
-        {this.state.submitted && <button onClick={this.handleDelete.bind(this)}>Delete</button>}
-      </form>
+      <div className="container">
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <div className="field is-grouped">
+            <div className="control is-expanded">
+              <input value={this.state.text} onChange={this.handleChange.bind(this)} className="input"/>
+            </div>
+            <div className="control">
+              <button type="submit" className={`button ${this.state.submitted ? 'is-warning' : 'is-success'}`}>{this.state.submitted ? "Edit" : "Save Question" }</button>
+              {this.state.submitted && <button onClick={this.handleDelete.bind(this)} className="button is-danger">Delete</button>}
+            </div>
+          </div>
+        </form>
+      </div>
     ); 
   }
 
@@ -54,7 +62,7 @@ class QuestionForm extends React.Component {
 
 class NewQuestionButton extends React.Component {
   render() {
-    return <button onClick={this.props.addQuestion}>New Question</button>
+    return <button onClick={this.props.addQuestion} className="button is-info">New Question</button>
   }
 }
 
@@ -68,12 +76,12 @@ export class Questions extends React.Component {
 
   render() {
     return (
-      <div>
-        <ul>
+      <div className="section">
+        <div>
           {_.map(this.state.questions, (question, i) =>
             <QuestionForm question={question} key={uuid.v4()} listId={i} removeQuestion={this.removeQuestion.bind(this)}/>
           )}
-        </ul>
+        </div>
         <NewQuestionButton addQuestion={this.addQuestion.bind(this)}/>
       </div>
     );

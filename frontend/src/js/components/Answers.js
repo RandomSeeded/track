@@ -43,7 +43,6 @@ export class Answers extends React.Component {
 
   async componentDidMount() {
     const questionsWithAnswers = await (await fetch('http://localhost:17792/api/answers/full')).json();
-    console.log('questionsWithAnswers', JSON.stringify(questionsWithAnswers));
     this.setState({
       questionsWithAnswers,
     });
