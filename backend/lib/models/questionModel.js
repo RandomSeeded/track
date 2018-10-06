@@ -16,14 +16,14 @@ async function remove(_id) {
   return await collection.deleteOne({ _id });
 }
 
-async function updateText(_id, text) {
+async function updateFields(_id, fields) {
   collection = collection || (await db()).collection('questions');
-  return await collection.updateOne({ _id }, { $set: { text } });
+  return await collection.updateOne({ _id }, { $set: fields });
 }
 
 module.exports = {
   add,
   query,
   remove,
-  updateText,
+  updateFields,
 };

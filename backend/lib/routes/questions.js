@@ -12,6 +12,7 @@ const taskList = require('../util/taskList');
 const { TASK_LIST_FILENAME } = require('../definitions/tasklist');
 const questionModel = require('../models/questionModel');
 const { ensureAuthenticated } = require('../util/authUtils');
+const { QUESTION_TYPES } = require('../definitions/QuestionTypes');
 
 app.get('/',
   ensureAuthenticated,
@@ -26,12 +27,16 @@ app.post('/',
   expressValidation({
     body: {
       text: Joi.string().required(),
+      type: Joi.string().valid(
+        QUESTION_TYPES,
+      ),
     },
   }),
   async (req, res) => {
     const user = req.user;
     const text = req.body.text;
-    questionModel.add({ _id: uuid.v4(), user, text });
+    const type = req.body.type;
+    questionModel.add({ _id: uuid.v4(), user, text, type });
     res.sendStatus(200);
   });
 
@@ -40,15 +45,20 @@ app.post('/:id',
   expressValidation({
     body: {
       text: Joi.string().required(),
+      type: Joi.string().valid(
+        QUESTION_TYPES,
+      ),
     },
   }),
   async (req, res) => {
     const user = req.user;
     const questionId = req.params.id;
     const text = req.body.text;
+    const type = req.body.type;
     const questions = await questionModel.query({ user, _id: questionId });
     assert(_.size(questions) === 1, `Unable to update ${questionId} - matched ${questions}`);
-    questionModel.updateText(questionId, text);
+    const fieldUpdates = { text, type};
+    questionModel.updateFields(questionId, fieldUpdates);
     res.sendStatus(200);
   });
 

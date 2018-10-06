@@ -2,6 +2,8 @@ import * as _ from 'lodash';
 import * as axios from 'axios';
 import * as uuid from 'uuid';
 
+import { QuestionType } from './QuestionType';
+
 class QuestionForm extends React.Component {
   constructor(props) {
     super(props);
@@ -9,6 +11,7 @@ class QuestionForm extends React.Component {
     this.state = {
       questionId,
       text: this.props.question.text,
+      type: this.props.question.type,
       submitted: !!questionId,
     };
   }
@@ -18,10 +21,15 @@ class QuestionForm extends React.Component {
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="field is-grouped">
             <div className="control is-expanded">
-              <input value={this.state.text} onChange={this.handleChange.bind(this)} className="input"/>
+              <input value={this.state.text} onChange={this.handleQuestionTextChange.bind(this)} className="input"/>
             </div>
             <div className="control">
-              <button type="submit" className={`button ${this.state.submitted ? 'is-warning' : 'is-success'}`}>{this.state.submitted ? "Edit" : "Save Question" }</button>
+              <QuestionType handleQuestionTypeChange={this.handleQuestionTypeChange.bind(this)} type={this.state.type}/>
+            </div>
+            <div className="control">
+              <button type="submit" className='button is-success'>{this.state.submitted ? "Save" : "Save Question" }</button>
+            </div>
+            <div className="control">
               {this.state.submitted && <button onClick={this.handleDelete.bind(this)} className="button is-danger">Delete</button>}
             </div>
           </div>
@@ -30,9 +38,16 @@ class QuestionForm extends React.Component {
     ); 
   }
 
-  handleChange(event) {
+  handleQuestionTextChange(event) {
     this.setState({
       text: event.target.value,
+    });
+    event.preventDefault();
+  }
+
+  handleQuestionTypeChange(event) {
+    this.setState({
+      type: event.target.value,
     });
     event.preventDefault();
   }
@@ -46,14 +61,16 @@ class QuestionForm extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    if (this.state.submitted) {
-      return await axios.post(`http://localhost:17792/api/questions/${this.state.questionId}`, {
-        text: this.state.text,
-      });
-    }
-    const res = await axios.post('http://localhost:17792/api/questions/', {
+
+    const postQuestionsUrl = this.state.submitted
+      ?  `http://localhost:17792/api/questions/${this.state.questionId}`
+      : 'http://localhost:17792/api/questions/';
+
+    const res = await axios.post(postQuestionsUrl, {
       text: this.state.text,
+      type: this.state.type,
     });
+
     this.setState({
       submitted: true,
     });
