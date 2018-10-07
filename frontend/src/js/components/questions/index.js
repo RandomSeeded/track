@@ -4,18 +4,20 @@ import * as uuid from 'uuid';
 
 import { QuestionType } from './QuestionType';
 import { Tags } from './Tags';
+import { QUESTION_TYPES } from '../../definitions/QuestionTypes';
 
 class QuestionForm extends React.Component {
   constructor(props) {
     super(props);
     const question = this.props.question;
     const questionId = _.get(question, '_id');
-    const tags = _.get(question, 'tags');
+    const tags = _.get(question, 'tags', []);
     this.state = {
       questionId,
       text: question.text,
       type: question.type,
       submitted: !!questionId,
+      tags,
     };
   }
   render() {
@@ -36,32 +38,42 @@ class QuestionForm extends React.Component {
               {this.state.submitted && <button onClick={this.handleDelete.bind(this)} className="button is-danger">Delete</button>}
             </div>
           </div>
-          <div className="container">
-            <Tags type={this.state.type}/>
-          </div>
         </form>
+        <div className="container">
+          <Tags type={this.state.type} tags={this.state.tags} handleQuestionTagsSave={this.handleQuestionTagsSave.bind(this)} handleQuestionTagsDelete={this.handleQuestionTagsDelete.bind(this)}/>
+        </div>
       </div>
     ); 
   }
 
   handleQuestionTextChange(event) {
+    event.preventDefault();
     this.setState({
       text: event.target.value,
     });
-    event.preventDefault();
   }
 
   handleQuestionTypeChange(event) {
+    event.preventDefault();
     this.setState({
       type: event.target.value,
     });
-    event.preventDefault();
+  }
+
+  handleQuestionTagsSave(newTag) {
+    const tags = [...this.state.tags, newTag];
+    this.setState({ tags });
+  }
+
+  handleQuestionTagsDelete(listId) {
+    const tags = [...this.state.tags];
+    tags.splice(listId, 1);
+    this.setState({ tags });
   }
 
   async handleDelete(event) {
     event.preventDefault();
-    await axios.delete(`http://localhost:17792/api/questions/${this.state.questionId}`, {
-    });
+    await axios.delete(`http://localhost:17792/api/questions/${this.state.questionId}`);
     this.props.removeQuestion(this.props.listId);
   }
 
@@ -72,10 +84,13 @@ class QuestionForm extends React.Component {
       ?  `http://localhost:17792/api/questions/${this.state.questionId}`
       : 'http://localhost:17792/api/questions/';
 
-    const res = await axios.post(postQuestionsUrl, {
+    const body = _.pickBy({
       text: this.state.text,
       type: this.state.type,
+      tags: this.state.type === QUESTION_TYPES.VALUES && this.state.tags,
     });
+
+    const res = await axios.post(postQuestionsUrl, body);
 
     this.setState({
       submitted: true,

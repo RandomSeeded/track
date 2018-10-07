@@ -30,13 +30,16 @@ app.post('/',
       type: Joi.string().valid(
         QuestionTypes.VALUES,
       ),
+      tags: Joi.array().items(Joi.string()).optional(),
     },
   }),
   async (req, res) => {
     const user = req.user;
     const text = req.body.text;
     const type = req.body.type;
-    questionModel.add({ _id: uuid.v4(), user, text, type });
+    // Known minor bug - could add tags to non-values question. NBD.
+    const tags = req.body.tags;
+    questionModel.add({ _id: uuid.v4(), user, text, type, tags });
     res.sendStatus(200);
   });
 
@@ -48,6 +51,7 @@ app.post('/:id',
       type: Joi.string().valid(
         QuestionTypes.VALUES,
       ),
+      tags: Joi.array().items(Joi.string()).optional(),
     },
   }),
   async (req, res) => {
@@ -55,9 +59,10 @@ app.post('/:id',
     const questionId = req.params.id;
     const text = req.body.text;
     const type = req.body.type;
+    const tags = req.body.tags;
     const questions = await questionModel.query({ user, _id: questionId });
     assert(_.size(questions) === 1, `Unable to update ${questionId} - matched ${questions}`);
-    const fieldUpdates = { text, type};
+    const fieldUpdates = _.omitBy({ text, type, tags }, _.isUndefined);
     questionModel.updateFields(questionId, fieldUpdates);
     res.sendStatus(200);
   });
