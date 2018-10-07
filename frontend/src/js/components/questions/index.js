@@ -3,21 +3,24 @@ import * as axios from 'axios';
 import * as uuid from 'uuid';
 
 import { QuestionType } from './QuestionType';
+import { Tags } from './Tags';
 
 class QuestionForm extends React.Component {
   constructor(props) {
     super(props);
-    const questionId = _.get(this.props.question, '_id');
+    const question = this.props.question;
+    const questionId = _.get(question, '_id');
+    const tags = _.get(question, 'tags');
     this.state = {
       questionId,
-      text: this.props.question.text,
-      type: this.props.question.type,
+      text: question.text,
+      type: question.type,
       submitted: !!questionId,
     };
   }
   render() {
     return (
-      <div className="container">
+      <div className="box">
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="field is-grouped">
             <div className="control is-expanded">
@@ -32,6 +35,9 @@ class QuestionForm extends React.Component {
             <div className="control">
               {this.state.submitted && <button onClick={this.handleDelete.bind(this)} className="button is-danger">Delete</button>}
             </div>
+          </div>
+          <div className="container">
+            <Tags type={this.state.type}/>
           </div>
         </form>
       </div>
@@ -99,7 +105,9 @@ export class Questions extends React.Component {
             <QuestionForm question={question} key={uuid.v4()} listId={i} removeQuestion={this.removeQuestion.bind(this)}/>
           )}
         </div>
-        <NewQuestionButton addQuestion={this.addQuestion.bind(this)}/>
+        <div className="container">
+          <NewQuestionButton addQuestion={this.addQuestion.bind(this)}/>
+        </div>
       </div>
     );
   }

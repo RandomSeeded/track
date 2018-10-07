@@ -1,5 +1,5 @@
-export const QUESTION_TYPES = [
-  'Rating',
-  'Numeric',
-  'Pick From Values'
-];
+export const QUESTION_TYPES = {
+  RATING: 'Rating',
+  NUMERIC: 'Numeric',
+  VALUES: 'Pick From Values'
+};

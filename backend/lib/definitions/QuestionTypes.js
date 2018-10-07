@@ -1,9 +1,14 @@
 'use strict';
 
-const QUESTION_TYPES = [
-  'Rating',
-  'Numeric',
-  'Pick From Values'
-];
+const _ = require('lodash');
 
-module.exports = { QUESTION_TYPES };
+const QUESTION_TYPES = {
+  RATING: 'Rating',
+  NUMERIC: 'Numeric',
+  VALUES: 'Pick From Values'
+};
+
+module.exports = { 
+  QUESTION_TYPES,
+  VALUES: _.values(QUESTION_TYPES),
+};

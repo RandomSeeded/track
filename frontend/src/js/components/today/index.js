@@ -1,23 +1,7 @@
 import * as _ from 'lodash';
 import * as axios from 'axios';
 
-class IndividualQuestion extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div className="field">
-        <label className="label">{this.props.question.text}</label>
-        <div className="select">
-          <select onChange={this.props.handleChange}>
-            {_.map(_.range(10), i => <option key={i}>{i}</option>)}
-          </select>
-        </div>
-      </div>
-    );
-  }
-}
+import { IndividualQuestion } from './IndividualQuestion';
 
 class SubmitButton extends React.Component {
   render() {

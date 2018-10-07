@@ -1,7 +1,7 @@
 import { BrowserRouter, NavLink, Route, Link } from 'react-router-dom';
-import { Today } from './Today';
+import { Today } from './today';
 import { Questions } from './questions';
-import { Answers } from './Answers';
+import { Answers } from './answers';
 
 export class Nav extends React.Component {
   render() {

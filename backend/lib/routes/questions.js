@@ -12,7 +12,7 @@ const taskList = require('../util/taskList');
 const { TASK_LIST_FILENAME } = require('../definitions/tasklist');
 const questionModel = require('../models/questionModel');
 const { ensureAuthenticated } = require('../util/authUtils');
-const { QUESTION_TYPES } = require('../definitions/QuestionTypes');
+const QuestionTypes = require('../definitions/QuestionTypes');
 
 app.get('/',
   ensureAuthenticated,
@@ -28,7 +28,7 @@ app.post('/',
     body: {
       text: Joi.string().required(),
       type: Joi.string().valid(
-        QUESTION_TYPES,
+        QuestionTypes.VALUES,
       ),
     },
   }),
@@ -46,7 +46,7 @@ app.post('/:id',
     body: {
       text: Joi.string().required(),
       type: Joi.string().valid(
-        QUESTION_TYPES,
+        QuestionTypes.VALUES,
       ),
     },
   }),
