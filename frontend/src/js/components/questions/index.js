@@ -35,7 +35,7 @@ class QuestionForm extends React.Component {
               <button type="submit" className='button is-success'>{this.state.submitted ? "Save" : "Save Question" }</button>
             </div>
             <div className="control">
-              {this.state.submitted && <button onClick={this.handleDelete.bind(this)} className="button is-danger">Delete</button>}
+              {this.state.submitted && <button onClick={this.handleDelete.bind(this)} className="button is-danger is-outlined">Delete</button>}
             </div>
           </div>
           <Tags type={this.state.type} tags={this.state.tags} handleQuestionTagsSave={this.handleQuestionTagsSave.bind(this)} handleQuestionTagsDelete={this.handleQuestionTagsDelete.bind(this)}/>
@@ -98,8 +98,15 @@ class QuestionForm extends React.Component {
 
 class NewQuestionButton extends React.Component {
   render() {
-    return <button onClick={this.props.addQuestion} className="button is-info">Add New Question</button>
+    return (
+      <a className="button is-primary is-large" onClick={this.props.addQuestion}>
+        <span className="icon">
+          <i className="fas fa-plus"/>
+        </span>
+      </a>
+    );
   }
+  // return <button onClick={this.props.addQuestion} className="button is-primary">Add New Question</button>
 }
 
 export class Questions extends React.Component {
@@ -113,11 +120,9 @@ export class Questions extends React.Component {
   render() {
     return (
       <div className="section">
-        <div>
-          {_.map(this.state.questions, (question, i) =>
-            <QuestionForm question={question} key={uuid.v4()} listId={i} removeQuestion={this.removeQuestion.bind(this)}/>
-          )}
-        </div>
+        {_.map(this.state.questions, (question, i) =>
+          <QuestionForm question={question} key={uuid.v4()} listId={i} removeQuestion={this.removeQuestion.bind(this)}/>
+        )}
         <NewQuestionButton addQuestion={this.addQuestion.bind(this)}/>
       </div>
     );

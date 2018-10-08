@@ -10,12 +10,12 @@ export class Tags extends React.Component {
   }
   render() {
     return (
-      <div>
-        <div className="field is-grouped is-grouped-multiline" hidden={this.props.type !== QUESTION_TYPES.VALUES}>
+      <div hidden={this.props.type !== QUESTION_TYPES.VALUES}>
+        <div className="field is-grouped is-grouped-multiline">
           {_.map(this.props.tags, (value, listId) =>
             <div className="control" key={uuid.v4()}>
               <div className="tags has-addons">
-                <span className="tag is-info">{value}<button className="delete" onClick={this.props.handleQuestionTagsDelete.bind(this, listId)}></button></span>
+                <span className="tag is-primary">{value}<button className="delete" onClick={this.props.handleQuestionTagsDelete.bind(this, listId)}></button></span>
               </div>
             </div>
           )}
@@ -25,7 +25,7 @@ export class Tags extends React.Component {
             <input className="input is-expanded" placeholder="Add Tag" value={this.state.currentValue} onChange={this.handleInputChange.bind(this)}/>
           </div>
           <div className="control">
-            <button className="button" type="submit" onClick={this.handleTagSave.bind(this)}>Save Tag</button>
+            <button className="button is-light" type="submit" onClick={this.handleTagSave.bind(this)}>Save Tag</button>
           </div>
         </div>
       </div>
