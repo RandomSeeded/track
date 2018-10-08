@@ -10,23 +10,25 @@ export class Tags extends React.Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleTagSave.bind(this)} hidden={this.props.type !== QUESTION_TYPES.VALUES}>
+      <div>
+        <div className="field is-grouped is-grouped-multiline" hidden={this.props.type !== QUESTION_TYPES.VALUES}>
+          {_.map(this.props.tags, (value, listId) =>
+            <div className="control" key={uuid.v4()}>
+              <div className="tags has-addons">
+                <span className="tag is-info">{value}<button className="delete" onClick={this.props.handleQuestionTagsDelete.bind(this, listId)}></button></span>
+              </div>
+            </div>
+          )}
+        </div>
         <div className="field is-grouped is-grouped-multiline">
           <div className="control">
             <input className="input is-expanded" placeholder="Add Tag" value={this.state.currentValue} onChange={this.handleInputChange.bind(this)}/>
           </div>
           <div className="control">
-            <button className="button" type="submit">Save Tag</button>
+            <button className="button" type="submit" onClick={this.handleTagSave.bind(this)}>Save Tag</button>
           </div>
-          {_.map(this.props.tags, (value, listId) =>
-            <div className="control">
-              <div className="tags has-addons">
-                <span key={uuid.v4()} className="tag is-info">{value}<button className="delete" onClick={this.props.handleQuestionTagsDelete.bind(this, listId)}></button></span>
-              </div>
-            </div>
-          )}
         </div>
-      </form>
+      </div>
     );
   }
 

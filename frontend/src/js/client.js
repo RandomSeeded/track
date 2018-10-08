@@ -1,13 +1,13 @@
 import { BrowserRouter, NavLink, Route, Link } from 'react-router-dom';
 import { RegeneratorRuntime } from '@babel/polyfill';
-import { Nav } from './components/Nav';
+import { Nav, Content } from './components/Nav';
 
 class App extends React.Component {
   render() {
     return (
       <div>
         <BrowserRouter>
-          <Nav/>
+          <Content/>
         </BrowserRouter>
       </div>
     );

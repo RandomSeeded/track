@@ -38,10 +38,8 @@ class QuestionForm extends React.Component {
               {this.state.submitted && <button onClick={this.handleDelete.bind(this)} className="button is-danger">Delete</button>}
             </div>
           </div>
-        </form>
-        <div className="container">
           <Tags type={this.state.type} tags={this.state.tags} handleQuestionTagsSave={this.handleQuestionTagsSave.bind(this)} handleQuestionTagsDelete={this.handleQuestionTagsDelete.bind(this)}/>
-        </div>
+        </form>
       </div>
     ); 
   }
@@ -100,7 +98,7 @@ class QuestionForm extends React.Component {
 
 class NewQuestionButton extends React.Component {
   render() {
-    return <button onClick={this.props.addQuestion} className="button is-info">New Question</button>
+    return <button onClick={this.props.addQuestion} className="button is-info">Add New Question</button>
   }
 }
 
@@ -120,9 +118,7 @@ export class Questions extends React.Component {
             <QuestionForm question={question} key={uuid.v4()} listId={i} removeQuestion={this.removeQuestion.bind(this)}/>
           )}
         </div>
-        <div className="container">
-          <NewQuestionButton addQuestion={this.addQuestion.bind(this)}/>
-        </div>
+        <NewQuestionButton addQuestion={this.addQuestion.bind(this)}/>
       </div>
     );
   }
