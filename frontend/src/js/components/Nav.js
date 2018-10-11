@@ -6,7 +6,7 @@ import { Answers } from './answers';
 class StyledLink extends React.Component {
   render() {
     return (
-      <li className={this.props.pathname === this.props.to && 'is-active'}><Link to={this.props.to}>{this.props.text}</Link></li>
+      <li className={this.props.pathname === this.props.to ? 'is-active': undefined}><Link to={this.props.to}>{this.props.text}</Link></li>
     );
   }
 }

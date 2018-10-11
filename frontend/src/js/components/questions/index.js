@@ -34,9 +34,16 @@ class QuestionForm extends React.Component {
             <div className="control">
               <button type="submit" className='button is-success'>{this.state.submitted ? "Save" : "Save Question" }</button>
             </div>
-            <div className="control">
-              {this.state.submitted && <button onClick={this.handleDelete.bind(this)} className="button is-danger is-outlined">Delete</button>}
-            </div>
+            {this.state.submitted && 
+                <div className="control">
+                  <a className="button is-danger is-outlined" onClick={this.handleDelete.bind(this)}>
+                    <span>Delete</span>
+                    <span className="icon">
+                      <i className="fas fa-times"></i>
+                    </span>
+                  </a>
+                </div>
+            }
           </div>
           <Tags type={this.state.type} tags={this.state.tags} handleQuestionTagsSave={this.handleQuestionTagsSave.bind(this)} handleQuestionTagsDelete={this.handleQuestionTagsDelete.bind(this)}/>
         </form>

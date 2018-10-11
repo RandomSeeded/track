@@ -6,6 +6,8 @@ import { IndividualQuestion } from './IndividualQuestion';
 class SubmitButton extends React.Component {
   render() {
     const disable = _.isEmpty(this.props.questions) || _.some(this.props.questions, question => !_.has(question, 'answer'));
+    console.log('this.props.questions', this.props.questions);
+    console.log('disable', disable);
     return (<button type="submit" disabled={disable} className="button is-success">Answer</button>);
   }
 }
@@ -46,10 +48,13 @@ export class Today extends React.Component {
     const res = await fetch('http://localhost:17792/api/questions');
     const questions = await res.json();
 
+    // TODO (nw): stopping point. You want to initialize the options questions correctly.
+    // That is sadly different per question type. Think on if there's a good way for the different questions to appropriately call a common method.
+
     // Initialize answers to 0 - enables submit button immediately
-    _.each(questions, question => {
-      question.answer = '0';
-    });
+    // _.each(questions, question => {
+    //   question.answer = '0';
+    // });
 
     this.setState({
       questions,

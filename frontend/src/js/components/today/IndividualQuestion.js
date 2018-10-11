@@ -1,4 +1,6 @@
 import * as _ from 'lodash';
+import * as uuid from 'uuid';
+
 import { QUESTION_TYPES } from '../../definitions/QuestionTypes';
 
 class RatingQuestion extends React.Component {
@@ -27,6 +29,34 @@ class NumericQuestion extends React.Component {
   }
 }
 
+class TagsQuestion extends React.Component {
+  render() {
+    return (
+      <div className="field">
+        <label className="label">{this.props.question.text}</label>
+        <div className="select">
+          <select onChange={this.props.handleChange}>
+            {_.map(this.props.question.tags, tag =>
+              <option key={uuid.v4()}>{tag}</option>
+            )}
+          </select>
+        </div>
+      </div>
+    );
+  }
+}
+
+class FreeformQuestion extends React.Component {
+  render() {
+    return (
+      <div className="field">
+        <label className="label">{this.props.question.text}</label>
+        <textarea className="textarea" placeholder="What's up?" onChange={this.props.handleChange}/>
+      </div>
+    );
+  }
+}
+
 export class IndividualQuestion extends React.Component {
   render() {
     switch(this.props.question.type) {
@@ -34,6 +64,10 @@ export class IndividualQuestion extends React.Component {
         return <RatingQuestion handleChange={this.props.handleChange} question={this.props.question}/>;
       case QUESTION_TYPES.NUMERIC:
         return <NumericQuestion handleChange={this.props.handleChange} question={this.props.question}/>;
+      case QUESTION_TYPES.VALUES:
+        return <TagsQuestion handleChange={this.props.handleChange} question={this.props.question}/>;
+      case QUESTION_TYPES.FREEFORM:
+        return <FreeformQuestion handleChange={this.props.handleChange} question={this.props.question}/>;
       default:
         return <p>hi</p>
     }

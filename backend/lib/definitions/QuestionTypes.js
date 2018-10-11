@@ -5,7 +5,8 @@ const _ = require('lodash');
 const QUESTION_TYPES = {
   RATING: 'Rating',
   NUMERIC: 'Numeric',
-  VALUES: 'Pick From Values'
+  VALUES: 'Pick From Values',
+  FREEFORM: 'Freeform',
 };
 
 module.exports = { 
