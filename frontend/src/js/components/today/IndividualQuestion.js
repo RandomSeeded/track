@@ -23,7 +23,7 @@ class NumericQuestion extends React.Component {
     return (
       <div className="field">
         <label className="label">{this.props.question.text}</label>
-        <input type="number" placeholder="42" className="input" onChange={this.props.handleChange}/>
+        <input type="number" placeholder="42" className="input" step="any" onChange={this.props.handleChange}/>
       </div>
     );
   }

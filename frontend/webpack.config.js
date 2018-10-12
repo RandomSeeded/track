@@ -12,6 +12,7 @@ const paths = {
 // Webpack configuration
 module.exports = {
   entry: [path.join(paths.JS, 'client.js')], // TODO (nw): use only those polyfills we need
+  mode: 'development', // TODO (nw): make dependent on node_env
   output: {
     path: paths.DIST,
     filename: 'app.bundle.js',

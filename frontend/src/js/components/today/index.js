@@ -2,12 +2,11 @@ import * as _ from 'lodash';
 import * as axios from 'axios';
 
 import { IndividualQuestion } from './IndividualQuestion';
+import { QUESTION_TYPES } from '../../definitions/QuestionTypes';
 
 class SubmitButton extends React.Component {
   render() {
     const disable = _.isEmpty(this.props.questions) || _.some(this.props.questions, question => !_.has(question, 'answer'));
-    console.log('this.props.questions', this.props.questions);
-    console.log('disable', disable);
     return (<button type="submit" disabled={disable} className="button is-success">Answer</button>);
   }
 }
@@ -44,6 +43,22 @@ export class Today extends React.Component {
     return html;
   }
 
+  initializeQuestions(questions) {
+    _.each(questions, question => {
+      switch (question.type) {
+        case QUESTION_TYPES.RATING:
+          return question.answer = '0';
+        case QUESTION_TYPES.VALUES:
+          return question.answer = _.first(question.tags);
+        default:
+          return; // No default answer set for freeform inputs
+      }
+    });
+    this.setState({
+      questions,
+    });
+  }
+
   async componentDidMount() {
     const res = await fetch('http://localhost:17792/api/questions');
     const questions = await res.json();
@@ -55,10 +70,7 @@ export class Today extends React.Component {
     // _.each(questions, question => {
     //   question.answer = '0';
     // });
-
-    this.setState({
-      questions,
-    });
+    this.initializeQuestions(questions);
   }
 
   handleChange(i, event) {

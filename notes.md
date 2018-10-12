@@ -16,3 +16,7 @@ Different things I want to track:
 - correlation between activities)
 - chart of things over time
 
+### Known bugs
+
+- If you add a question and modify it (save or don't save) then add another question, the text from the previous question is lost
+- You can save a new question even when it's missing some information
