@@ -63,13 +63,6 @@ export class Today extends React.Component {
     const res = await fetch('http://localhost:17792/api/questions');
     const questions = await res.json();
 
-    // TODO (nw): stopping point. You want to initialize the options questions correctly.
-    // That is sadly different per question type. Think on if there's a good way for the different questions to appropriately call a common method.
-
-    // Initialize answers to 0 - enables submit button immediately
-    // _.each(questions, question => {
-    //   question.answer = '0';
-    // });
     this.initializeQuestions(questions);
   }
 
@@ -82,10 +75,12 @@ export class Today extends React.Component {
   }
 
   async handleSubmit(event) {
+    const answeredAt = Date.now();
     _.each(this.state.questions, async question => {
       const body = {
         questionId: question._id,
         answer: question.answer,
+        answeredAt,
       }
       await axios.post('http://localhost:17792/api/answers', body);
     });

@@ -1,50 +1,18 @@
-import * as _ from 'lodash';
-import * as uuid from 'uuid';
-
-export class AnswersForQuestion extends React.Component {
-  render() {
-    return (
-      <ul>
-        {_.map(this.props.answers, answer =>
-          <li key={uuid.v4()}>{answer.answer}</li>
-        )}
-      </ul>
-    );
-  }
-}
-
-export class QuestionDisplay extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>{this.props.text}</p>
-        <AnswersForQuestion answers={this.props.answers}/>
-      </div>
-    );
-  }
-}
-
 export class Answers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionsWithAnswers: [],
+      answersWithQuestionsByDate: [],
     };
   }
   render() {
+    // TODO [STOPPING POINT] - start to render answers for a specific date in a way that makes sense
     return (
-      <ul>
-        {_.map(this.state.questionsWithAnswers, question =>
-          <li key={uuid.v4()}><QuestionDisplay text={question.text} answers={question.answers}/></li>
-        )}
-      </ul>
+      <p>Hi</p>
     );
   }
 
   async componentDidMount() {
-    const questionsWithAnswers = await (await fetch('http://localhost:17792/api/answers/full')).json();
-    this.setState({
-      questionsWithAnswers,
-    });
+    const answersWithQuestionsByDate = await (await fetch('http://localhost:17792/api/answers/by-date')).json();
   }
 }

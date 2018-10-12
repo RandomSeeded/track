@@ -19,19 +19,38 @@ app.post('/',
     body: {
       questionId: Joi.string().guid().required(),
       answer: Joi.string().required(),
+      answeredAt: Joi.date().required(),
     },
   }),
   async function(req, res, next) {
     const user = req.user;
-    const { questionId, answer } = req.body;
+    const { questionId, answer, answeredAt } = req.body;
     await answerModel.add({
       _id: uuid.v4(),
       questionId,
       answer,
-      answeredAt: Date.now(),
+      answeredAt: Number(answeredAt),
       user,
     });
     res.sendStatus(200);
+  });
+
+app.get('/by-date',
+  ensureAuthenticated,
+  async (req, res, next) => {
+    const user = req.user;
+    const answers = await answerModel.query({ user });
+    const questionIds = _(answers).map('questionId').uniq().value();
+    const questions = await questionModel.query({ _id: { $in: questionIds }});
+    const questionsById = _.keyBy(questions, '_id');
+    const answersWithQuestions = _.map(answers, answer => {
+      return _.extend({},
+        answer,
+        { question: questionsById[answer.questionId] },
+      );
+    });
+    const answersWithQuestionsByDate = _.groupBy(answersWithQuestions, 'answeredAt');
+    res.send(answersWithQuestionsByDate);
   });
 
 app.get('/full',

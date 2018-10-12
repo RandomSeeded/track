@@ -16,6 +16,14 @@ Different things I want to track:
 - correlation between activities)
 - chart of things over time
 
+----
+
+I'm thinking different types of metrics:
+
+1. See individual entries (aka what did you answer today? What did you answer yesterday?)
+2. Aggregates
+3. SQL :)
+
 ### Known bugs
 
 - If you add a question and modify it (save or don't save) then add another question, the text from the previous question is lost
