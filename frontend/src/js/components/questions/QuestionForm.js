@@ -54,7 +54,7 @@ export class QuestionForm extends React.Component {
       <div className="box">
         <ConfirmDeleteModal handleDelete={this.handleDelete.bind(this)} deleteModalOpen={this.state.deleteModalOpen} closeDeleteModal={this.closeDeleteModal.bind(this)}/>
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="field is-grouped">
+          <div className="field is-grouped is-grouped-multiline">
             <div className="control is-expanded">
               <input value={this.state.text} onChange={this.handleQuestionTextChange.bind(this)} className="input"/>
             </div>

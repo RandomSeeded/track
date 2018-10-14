@@ -3,29 +3,52 @@ import { Today } from './today';
 import { Questions } from './questions';
 import { Answers } from './answers';
 
-class StyledLink extends React.Component {
+export class Nav extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuIsOpen: false,
+    };
+  }
   render() {
     return (
-      <li className={this.props.pathname === this.props.to ? 'is-active': undefined}><Link to={this.props.to}>{this.props.text}</Link></li>
+      <div>
+        <nav className="navbar is-primary" role="navigation" aria-label="main-navigation">
+          <div className="navbar-brand">
+            <Link to="/today" className="navbar-item" onClick={this.handleLinkClick.bind(this)}>[Logo Goes Here]</Link>
+            <a role="button" className={`navbar-burger ${this.state.menuIsOpen && 'is-active'}`} aria-label="menu" aria-expanded="false" onClick={this.handleBurgerClick.bind(this)}>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div id="navbarBasicExample" className={`navbar-menu ${this.state.menuIsOpen && 'is-active'}`}>
+            <div className="navbar-start">
+              <Link className="navbar-item" to="/questions" onClick={this.handleLinkClick.bind(this)}>Questions</Link>
+              <Link className="navbar-item" to="/answers" onClick={this.handleLinkClick.bind(this)}>Answers</Link>
+            </div>
+          </div>
+        </nav>
+        <div>
+          <Route path="/today" component={Today}/>
+          <Route path="/questions" component={Questions}/>
+          <Route path="/answers" component={Answers}/>
+        </div>
+      </div>
     );
   }
-}
 
-export const Content = withRouter(props => 
-  <div>
-    <nav>
-      <div className="tabs is-centered">
-        <ul>
-          <StyledLink to="/today" text="Today" pathname={props.location.pathname}/>
-          <StyledLink to="/questions" text="Questions" pathname={props.location.pathname}/>
-          <StyledLink to="/answers" text="Answers" pathname={props.location.pathname}/>
-        </ul>
-      </div>
-    </nav>
-    <div>
-      <Route path="/today" component={Today}/>
-      <Route path="/questions" component={Questions}/>
-      <Route path="/answers" component={Answers}/>
-    </div>
-  </div>
-);
+  handleLinkClick() {
+    const menuIsOpen = false;
+    this.setState({
+      menuIsOpen,
+    });
+  }
+
+  handleBurgerClick() {
+    const menuIsOpen = !this.state.menuIsOpen;
+    this.setState({
+      menuIsOpen,
+    });
+  }
+}
