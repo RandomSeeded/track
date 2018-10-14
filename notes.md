@@ -28,3 +28,4 @@ I'm thinking different types of metrics:
 
 - If you add a question and modify it (save or don't save) then add another question, the text from the previous question is lost
 - You can save a new question even when it's missing some information
+- You really need a 'are you sure' prompt for delete

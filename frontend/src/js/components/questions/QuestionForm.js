@@ -5,6 +5,33 @@ import { Tags } from './Tags';
 import { QuestionType } from './QuestionType';
 import { DEFAULT_QUESTION_TYPE, QUESTION_TYPES } from '../../definitions/QuestionTypes';
 
+class ConfirmDeleteModal extends React.Component {
+  render() {
+    return (
+      <div className={`modal ${this.props.deleteModalOpen ? 'is-active' : ''}`}>
+        <div className="modal-background" onClick={this.props.closeDeleteModal}>
+        </div>
+        <div className="modal-content">
+          <div className="box">
+            <div className="field">
+              <label className="label">Are you sure you want to delete this question?</label>
+            </div>
+            <div className="field is-grouped is-grouped-right">
+              <div className="control">
+                <button className="button is-primary" onClick={this.props.closeDeleteModal}>Go Back</button>
+              </div>
+              <div className="control">
+                <button className="button is-danger" onClick={this.props.handleDelete}>Confirm Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={this.props.closeDeleteModal}/>
+      </div>
+    );
+  }
+}
+
 export class QuestionForm extends React.Component {
   constructor(props) {
     super(props);
@@ -18,11 +45,14 @@ export class QuestionForm extends React.Component {
       type,
       submitted: !!questionId,
       tags,
+      deleteModalOpen: false,
     };
   }
   render() {
+    // <a className="button is-danger is-outlined" onClick={this.handleDelete.bind(this)}>
     return (
       <div className="box">
+        <ConfirmDeleteModal handleDelete={this.handleDelete.bind(this)} deleteModalOpen={this.state.deleteModalOpen} closeDeleteModal={this.closeDeleteModal.bind(this)}/>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="field is-grouped">
             <div className="control is-expanded">
@@ -36,7 +66,7 @@ export class QuestionForm extends React.Component {
             </div>
             {this.state.submitted && 
                 <div className="control">
-                  <a className="button is-danger is-outlined" onClick={this.handleDelete.bind(this)}>
+                  <a className="button is-danger is-outlined" onClick={this.openDeleteModal.bind(this)}>
                     <span>Delete</span>
                     <span className="icon">
                       <i className="fas fa-times"></i>
@@ -49,6 +79,18 @@ export class QuestionForm extends React.Component {
         </form>
       </div>
     ); 
+  }
+
+  openDeleteModal() {
+    this.setState({
+      deleteModalOpen: true,
+    });
+  }
+
+  closeDeleteModal() {
+    this.setState({
+      deleteModalOpen: false,
+    });
   }
 
   handleQuestionTextChange(event) {
@@ -77,6 +119,9 @@ export class QuestionForm extends React.Component {
   }
 
   async handleDelete(event) {
+    this.setState({
+      deleteModalOpen: false,
+    });
     event.preventDefault();
     await axios.delete(`http://localhost:17792/api/questions/${this.state.questionId}`);
     this.props.removeQuestion(this.props.listId);
