@@ -36,8 +36,8 @@ class TagsQuestion extends React.Component {
         <label className="label">{this.props.question.text}</label>
         <div className="select">
           <select onChange={this.props.handleChange}>
-            {_.map(this.props.question.tags, tag =>
-              <option key={uuid.v4()}>{tag}</option>
+            {_.map(this.props.question.tags, (tag, i) =>
+              <option key={i}>{tag}</option>
             )}
           </select>
         </div>
