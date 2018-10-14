@@ -7,9 +7,17 @@ class AnswerChooser extends React.Component {
     return (
       <div className="level">
         <div className="buttons has-addons level-item">
-          <span className="button is-large" disabled={this.props.isFirstDate} onClick={this.props.handlePrevDate}>{"<"}</span>
+          <a className="button is-large" disabled={this.props.isFirstDate} onClick={this.props.handlePrevDate}>
+            <span className="icon is-large">
+              <i className="fas fa-chevron-left"/>
+            </span>
+          </a>
           <span className="button is-large is-primary">{currentDate}</span>
-          <span className="button is-large" disabled={this.props.isLastDate} onClick={this.props.handleNextDate}>{">"}</span>
+          <a className="button is-large" disabled={this.props.isLastDate} onClick={this.props.handleNextDate}>
+            <span className="icon is-large">
+              <i className="fas fa-chevron-right"/>
+            </span>
+          </a>
         </div>
       </div>
     );
