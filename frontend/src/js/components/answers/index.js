@@ -3,7 +3,7 @@ import { format, prase } from 'date-fns';
 
 class AnswerChooser extends React.Component {
   render() {
-    const currentDate = format(Number(this.props.currentDate), 'MM/DD/YY');
+    const currentDate = format(Number(this.props.currentDate), 'MM/DD/YY hh:mm A');
     return (
       <div className="level">
         <div className="buttons has-addons level-item">
