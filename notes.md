@@ -17,12 +17,21 @@ I'm thinking different types of metrics:
 
 ### Misc feature requests:
 
+- need a front page & sign in with google prompt
 - reordering of questions
 - ordering of answers matches order of questions
+- non-google auths
+- favicons
+- a logo
+- deploy
+- multiple select for tags questions
 
 ### Known bugs
 
 - If you add a question and modify it (save or don't save) then add another question, the text from the previous question is lost
+- Everything's a little wonky around question addition, because of confusion around where state is stored. If you addquestion._idquestion._id a question you cannot delete it without refreshing the page. If you change key from uuid to based on question._id, it resolves the above bug. Why? Not quite sure. Because the re-render of the parent component has a diff uuid causing the child component to rerender and it's not in the state as passed from the parent component.
+- If you use question._id instead this should be solved. But we need to update the parent's question ids on successful question submission. This is doable.
+- One issue: we kind of have duplicate state then between the question form and the question page - both are keeping a copy of all the questions. This is not ideal. It probably should be moved entirely to the parent.
 
 ### Bugs you actually wrote down and then actually fixed (wow)
 
