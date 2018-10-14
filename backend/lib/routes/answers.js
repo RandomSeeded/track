@@ -43,7 +43,8 @@ app.get('/by-date',
     const questionIds = _(answers).map('questionId').uniq().value();
     const questions = await questionModel.query({ _id: { $in: questionIds }});
     const questionsById = _.keyBy(questions, '_id');
-    const answersWithQuestions = _.map(answers, answer => {
+    const answersWithCorrespondingQuestions = _.filter(answers, answer => questionsById[answer.questionId]);
+    const answersWithQuestions = _.map(answersWithCorrespondingQuestions, answer => {
       return _.extend({},
         answer,
         { question: questionsById[answer.questionId] },
