@@ -46,10 +46,10 @@ export class QuestionForm extends React.Component {
       submitted: !!questionId,
       tags,
       deleteModalOpen: false,
+      modified: false,
     };
   }
   render() {
-    // <a className="button is-danger is-outlined" onClick={this.handleDelete.bind(this)}>
     return (
       <div className="box">
         <ConfirmDeleteModal handleDelete={this.handleDelete.bind(this)} deleteModalOpen={this.state.deleteModalOpen} closeDeleteModal={this.closeDeleteModal.bind(this)}/>
@@ -62,7 +62,12 @@ export class QuestionForm extends React.Component {
               <QuestionType handleQuestionTypeChange={this.handleQuestionTypeChange.bind(this)} type={this.state.type}/>
             </div>
             <div className="control">
-              <button type="submit" className='button is-success'>{this.state.submitted ? "Save" : "Save Question" }</button>
+              {!this.state.submitted &&
+                  <button type="submit" className='button is-success'>Save Question</button>
+              }
+              {this.state.submitted &&
+                  <button type="submit" className='button is-success' disabled={!this.state.modified}>Save</button>
+              }
             </div>
             {this.state.submitted && 
                 <div className="control">
@@ -84,12 +89,14 @@ export class QuestionForm extends React.Component {
   openDeleteModal() {
     this.setState({
       deleteModalOpen: true,
+      modified: true,
     });
   }
 
   closeDeleteModal() {
     this.setState({
       deleteModalOpen: false,
+      modified: true,
     });
   }
 
@@ -97,6 +104,7 @@ export class QuestionForm extends React.Component {
     event.preventDefault();
     this.setState({
       text: event.target.value,
+      modified: true,
     });
   }
 
@@ -104,18 +112,25 @@ export class QuestionForm extends React.Component {
     event.preventDefault();
     this.setState({
       type: event.target.value,
+      modified: true,
     });
   }
 
   handleQuestionTagsSave(newTag) {
     const tags = [...this.state.tags, newTag];
-    this.setState({ tags });
+    this.setState({
+      tags,
+      modified: true,
+    });
   }
 
   handleQuestionTagsDelete(listId) {
     const tags = [...this.state.tags];
     tags.splice(listId, 1);
-    this.setState({ tags });
+    this.setState({
+      tags,
+      modified: true,
+    });
   }
 
   async handleDelete(event) {
@@ -144,6 +159,7 @@ export class QuestionForm extends React.Component {
 
     this.setState({
       submitted: true,
+      modified: false,
     });
   }
 }

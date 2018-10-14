@@ -43,8 +43,8 @@ export class Questions extends React.Component {
     });
   }
 
-  async addQuestion() {
-    await this.setState({
+  addQuestion() {
+    this.setState({
       questions: [...this.state.questions, { text: 'Whats your question?' }],
     });
   }
