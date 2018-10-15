@@ -41,7 +41,6 @@ export class Nav extends React.Component {
   }
 
   handleLinkClick() {
-    console.log('handleLinkClick');
     const menuIsOpen = false;
     this.setState({
       menuIsOpen,

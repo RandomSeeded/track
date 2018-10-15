@@ -12,7 +12,7 @@ const passport = require('passport');
 const path = require('path');
 const util = require('util');
 
-const { ensureAuthenticated } = require('./util/authUtils');
+const { ensureAuthenticated, isAuthenticated } = require('./util/authUtils');
 const questionModel = require('./models/questionModel');
 
 const {
@@ -53,22 +53,19 @@ passport.use(new googleStrategy({
 app.use(cors());
 
 app.get('/auth/google', 
-  (req, res, next) => {
-    console.log('endpoint hit auth google (not callback)');
-    next();
-  },
   passport.authenticate('google', { scope: ['profile'] }));
 
 app.get('/auth/google/callback', 
-  (req, res, next) => {
-    console.log('endpoint hit auth google callback');
-    next();
-  },
   passport.authenticate('google', { scope: ['profile'], failureRedirect: '/login' }),
   function(req, res) {
-    console.log('successful authentication from auth/google/callback');
     // Successful authentication, redirect home.
-    return res.redirect('/');
+    return res.redirect('/today');
+  });
+
+app.get('/api/is-authenticated',
+  (req, res, next) => {
+    const status = isAuthenticated(req) ? 200 : 401;
+    res.sendStatus(status);
   });
 
 app.use('/api/reminder', require('./routes/reminder'));

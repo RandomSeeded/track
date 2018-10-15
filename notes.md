@@ -18,6 +18,8 @@ I'm thinking different types of metrics:
 ### Misc feature requests:
 
 - need a front page & sign in with google prompt
+- need to provide canonical host URL: right now frontend is hardcoding in 17792
+- and you can't just use relative because then you're hitting webpack dev server
 - reordering of questions
 - ordering of answers matches order of questions
 - non-google auths

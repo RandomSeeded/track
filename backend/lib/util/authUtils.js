@@ -12,6 +12,18 @@ function ensureAuthenticated(req, res, next) {
   return res.redirect('/auth/google');
 }
 
+function isAuthenticated(req) {
+  if (process.env.NODE_ENV === 'dev') {
+    return true;
+  }
+
+  if (req.isAuthenticated()) {
+    return true;
+  }
+  return false;
+}
+
 module.exports = {
   ensureAuthenticated,
+  isAuthenticated,
 };
