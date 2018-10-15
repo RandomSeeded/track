@@ -13,6 +13,10 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function isAuthenticated(req) {
+  if (process.env.TEST_NON_AUTHENTICATED === 'true') {
+    return false;
+  }
+
   if (process.env.NODE_ENV === 'dev') {
     return true;
   }
