@@ -25,6 +25,8 @@ I'm thinking different types of metrics:
 - a logo
 - deploy
 - multiple select for tags questions
+- How do you want to handle deleted questions? Do you want to display data for those deleted questions when you look at those previous days or not?
+- Mark active page in navbar
 
 ### Known bugs
 

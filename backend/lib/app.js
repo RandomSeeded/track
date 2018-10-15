@@ -3,6 +3,7 @@
 require('./util/exceptionHandlers');
 
 const _ = require('lodash');
+const cors = require('cors');
 const express = require('express');
 const fs = require('fs');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -49,25 +50,23 @@ passport.use(new googleStrategy({
 }));
 
 // CORS from webpack dev server
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+app.use(cors());
 
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
-
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+app.get('/auth/google', 
+  (req, res, next) => {
+    console.log('endpoint hit auth google (not callback)');
+    next();
+  },
+  passport.authenticate('google', { scope: ['profile'] }));
 
 app.get('/auth/google/callback', 
+  (req, res, next) => {
+    console.log('endpoint hit auth google callback');
+    next();
+  },
   passport.authenticate('google', { scope: ['profile'], failureRedirect: '/login' }),
   function(req, res) {
+    console.log('successful authentication from auth/google/callback');
     // Successful authentication, redirect home.
     return res.redirect('/');
   });
@@ -77,13 +76,8 @@ app.use('/api/questions', require('./routes/questions'));
 app.use('/api/answers', require('./routes/answers'));
 
 app.use(express.static(path.join(__dirname, '../../frontend/dist/')));
-// app.get('*', (req, res, next) =>
-//   res.sendFile('/index.html', { root: path.join(__dirname, '../../frontend/src/') }));
-
-// app.get('/',
-//   (req, res) => {
-//     return res.send('<p>Test</p>');
-//   });
+app.get('*', (req, res, next) =>
+  res.sendFile('/index.html', { root: path.join(__dirname, '../../frontend/dist/') }));
 
 app.listen(PORT);
 console.log(`app listening on ${PORT}`);

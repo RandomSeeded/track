@@ -26,6 +26,7 @@ export class Today extends React.Component {
     this.state.done = false;
   }
   render() {
+    console.log('today render');
     const form = (
       <div className="section">
         <form onSubmit={this.handleSubmit.bind(this)}>

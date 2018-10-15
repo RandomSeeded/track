@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Link, withRouter } from 'react-router-dom';
 import { Today } from './today';
 import { Questions } from './questions';
 import { Answers } from './answers';
+import { FrontPage } from './frontPage';
 
 export class Nav extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ export class Nav extends React.Component {
           </div>
         </nav>
         <div>
+          <Route exact path="/" component={FrontPage}/>
           <Route path="/today" component={Today}/>
           <Route path="/questions" component={Questions}/>
           <Route path="/answers" component={Answers}/>
@@ -39,6 +41,7 @@ export class Nav extends React.Component {
   }
 
   handleLinkClick() {
+    console.log('handleLinkClick');
     const menuIsOpen = false;
     this.setState({
       menuIsOpen,
