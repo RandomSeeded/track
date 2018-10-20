@@ -57,6 +57,18 @@ class FreeformQuestion extends React.Component {
   }
 }
 
+class BinaryQuestion extends React.Component {
+  render() {
+    return (
+      <div className="field">
+        <label className="label">{this.props.question.text}
+          <input type="checkbox"/>
+        </label>
+      </div>
+    );
+  }
+}
+
 export class IndividualQuestion extends React.Component {
   render() {
     switch(this.props.question.type) {
@@ -68,8 +80,10 @@ export class IndividualQuestion extends React.Component {
         return <TagsQuestion handleChange={this.props.handleChange} question={this.props.question}/>;
       case QUESTION_TYPES.FREEFORM:
         return <FreeformQuestion handleChange={this.props.handleChange} question={this.props.question}/>;
+      case QUESTION_TYPES.CHECKMARK:
+        return <BinaryQuestion handleChange={this.props.handleChange} question={this.props.question}/>;
       default:
-        return <p>hi</p>
+        return <p>[Unsupported question type]</p>
     }
   }
 }

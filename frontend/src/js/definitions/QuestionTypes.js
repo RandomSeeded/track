@@ -4,4 +4,5 @@ export const QUESTION_TYPES = {
   NUMERIC: 'Numeric',
   VALUES: 'Pick From Values',
   FREEFORM: 'Freeform',
+  CHECKMARK: 'Checkmark / Binary',
 };

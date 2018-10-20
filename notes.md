@@ -29,7 +29,9 @@ I'm thinking different types of metrics:
 - deploy
 - multiple select for tags questions
 - How do you want to handle deleted questions? Do you want to display data for those deleted questions when you look at those previous days or not?
-- Mark active page in navbar
+- TESTS TESTS TESTS (need this)
+- Checkbox questions
+- Conditional questions
 
 ### Known bugs
 
@@ -53,3 +55,4 @@ Different things I want to track:
 
 ### Done backlog
 - need a front page & sign in with google prompt [done-ish]
+- Mark active page in navbar [done]
