@@ -17,7 +17,8 @@ I'm thinking different types of metrics:
 
 ### Misc feature requests:
 
-- need a front page & sign in with google prompt [done-ish]
+- a name for the project
+- a description for the project
 - need to provide canonical host URL: right now frontend is hardcoding in 17792
 - and you can't just use relative because then you're hitting webpack dev server
 - reordering of questions
@@ -50,3 +51,5 @@ Different things I want to track:
 - happiness (done) [done]
 - what activities? [done]
 
+### Done backlog
+- need a front page & sign in with google prompt [done-ish]

@@ -1,6 +1,6 @@
 import { BrowserRouter, NavLink, Route, Link } from 'react-router-dom';
 import { RegeneratorRuntime } from '@babel/polyfill';
-import { Nav } from './components/Nav';
+import { NavWithRouter } from './components/Nav';
 import { FrontPage } from './components/frontPage';
 
 class App extends React.Component {
@@ -19,7 +19,7 @@ class App extends React.Component {
         }
         {this.state.isAuthenticated &&
             <BrowserRouter>
-              <Nav/>
+              <NavWithRouter/>
             </BrowserRouter>
         }
       </div>
