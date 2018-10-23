@@ -3,3 +3,5 @@
 backend/testFixtures/
 backend/tasklist/
 **/tags
+**/*.env
+secrets/

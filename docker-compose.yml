@@ -5,4 +5,7 @@ services:
     ports:
       - "17792:17792"
     restart: always
-
+    env_file:
+      # TODO (nw): figure out how to conditionally use prod secrets
+      - ./secrets/secrets.env
+      - ./secrets/devsecrets.env
