@@ -22,7 +22,7 @@ const {
 } = require('./secrets');
 const worker = require('./worker/worker');
 
-const PORT = 17792;
+const PORT = process.env.NODE_ENV === 'dev' ? 17792 : 80;
 
 const app = express();
 
