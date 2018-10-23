@@ -78,7 +78,3 @@ app.get('*', (req, res, next) =>
 
 app.listen(PORT);
 console.log(`app listening on ${PORT}`);
-
-setTimeout(() => {
-  process.exit(1);
-}, 15000);
