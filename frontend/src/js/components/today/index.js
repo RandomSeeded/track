@@ -50,6 +50,8 @@ export class Today extends React.Component {
           return question.answer = '0';
         case QUESTION_TYPES.VALUES:
           return question.answer = _.first(question.tags);
+        case QUESTION_TYPES.CHECKMARK:
+          return question.answer = 'Yes';
         default:
           return; // No default answer set for freeform inputs
       }

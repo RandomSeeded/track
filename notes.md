@@ -17,7 +17,8 @@ I'm thinking different types of metrics:
 
 ### Misc feature requests:
 
-- a name for the project
+- deploy
+- a name for the project [longitude]
 - a description for the project
 - need to provide canonical host URL: right now frontend is hardcoding in 17792
 - and you can't just use relative because then you're hitting webpack dev server
@@ -30,7 +31,6 @@ I'm thinking different types of metrics:
 - multiple select for tags questions
 - How do you want to handle deleted questions? Do you want to display data for those deleted questions when you look at those previous days or not?
 - TESTS TESTS TESTS (need this)
-- Checkbox questions
 - Conditional questions
 
 ### Known bugs
@@ -52,6 +52,7 @@ Different things I want to track:
 - how much sleep? (numeric freeform) [done]
 - happiness (done) [done]
 - what activities? [done]
+- Checkbox questions [done]
 
 ### Done backlog
 - need a front page & sign in with google prompt [done-ish]

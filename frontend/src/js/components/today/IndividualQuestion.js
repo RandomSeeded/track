@@ -61,9 +61,13 @@ class BinaryQuestion extends React.Component {
   render() {
     return (
       <div className="field">
-        <label className="label">{this.props.question.text}
-          <input type="checkbox"/>
-        </label>
+        <label className="label">{this.props.question.text}</label>
+        <div className="select">
+          <select onChange={this.props.handleChange}>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
       </div>
     );
   }
