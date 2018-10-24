@@ -138,7 +138,7 @@ export class QuestionForm extends React.Component {
       deleteModalOpen: false,
     });
     event.preventDefault();
-    await axios.delete(`http://localhost:17792/api/questions/${this.state.questionId}`);
+    await axios.delete(`/api/questions/${this.state.questionId}`);
     this.props.removeQuestion(this.props.listId);
   }
 
@@ -146,8 +146,8 @@ export class QuestionForm extends React.Component {
     event.preventDefault();
 
     const postQuestionsUrl = this.state.submitted
-      ?  `http://localhost:17792/api/questions/${this.state.questionId}`
-      : 'http://localhost:17792/api/questions/';
+      ?  `/api/questions/${this.state.questionId}`
+      : '/api/questions/';
 
     const body = _.pickBy({
       text: this.state.text,

@@ -27,7 +27,8 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    const res = await fetch('http://localhost:17792/api/is-authenticated');
+    // const res = await fetch('http://localhost:17792/api/is-authenticated');
+    const res = await fetch('/api/is-authenticated');
     const isAuthenticated = res.status === 200;
     this.setState({
       isAuthenticated,

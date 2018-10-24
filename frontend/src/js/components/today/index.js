@@ -62,7 +62,7 @@ export class Today extends React.Component {
   }
 
   async componentDidMount() {
-    const res = await fetch('http://localhost:17792/api/questions');
+    const res = await fetch('/api/questions');
     const questions = await res.json();
 
     this.initializeQuestions(questions);
@@ -84,7 +84,7 @@ export class Today extends React.Component {
         answer: question.answer,
         answeredAt,
       }
-      await axios.post('http://localhost:17792/api/answers', body);
+      await axios.post('/api/answers', body);
     });
     event.preventDefault();
     this.setState({ done: true });

@@ -36,7 +36,7 @@ export class Questions extends React.Component {
   }
 
   async componentDidMount() {
-    const res = await fetch('http://localhost:17792/api/questions');
+    const res = await fetch('/api/questions');
     const questions = await res.json();
     this.setState({
       questions,

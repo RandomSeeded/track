@@ -85,7 +85,7 @@ export class Answers extends React.Component {
   }
 
   async componentDidMount() {
-    const answersWithQuestionsByDate = await (await fetch('http://localhost:17792/api/answers/by-date')).json();
+    const answersWithQuestionsByDate = await (await fetch('/api/answers/by-date')).json();
     this.setState({
       answersWithQuestionsByDate,
       currentDateIndex: _.size(answersWithQuestionsByDate) -1,
