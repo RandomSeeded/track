@@ -57,3 +57,11 @@ Different things I want to track:
 ### Done backlog
 - need a front page & sign in with google prompt [done-ish]
 - Mark active page in navbar [done]
+
+
+Temp stopping point:
+- You need to create a new AWS user and set up config / credentials so you can log in with that user from the command line
+- You need to figure out how to get tasks working correctly from the CLI
+- You then need to update task definitions from the CLI to point the new task definition to the new docker image
+- You then need to make a short script which builds, tags, pushes, and updates task definitions on AWS
+
