@@ -10,7 +10,6 @@ async function db() {
   if (connection) {
     return connection;
   }
-  // const client = await MongoClient.connect('mongodb://localhost:27017');
   const client = await MongoClient.connect(MONGO_HOST);
   const dbName = 'track';
   connection = client.db(dbName);
