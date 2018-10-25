@@ -38,6 +38,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
+  console.log('deserializeUser', user);
   done(null, user);
 });
 
@@ -59,6 +60,7 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { scope: ['profile'], failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
+    console.log('successful authentication from google callback');
     return res.redirect('/today');
   });
 
