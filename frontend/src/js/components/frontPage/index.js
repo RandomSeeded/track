@@ -14,7 +14,7 @@ export class FrontPage extends React.Component {
       <section className="hero is-fullheight is-primary">
         <div className="hero-body">
           <div className="container">
-            <h1 className="title">Longitude4</h1>
+            <h1 className="title">Longitude5</h1>
             <h2 className="subtitle">A description of this project</h2>
             <a href="/auth/google" onClick={this.handleGoogleButtonClick.bind(this)}>
               {!this.state.googleButtonPressed &&
