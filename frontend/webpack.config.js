@@ -43,6 +43,12 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:17792',
+        secure: false,
+      },
+    },
   },
   resolve: {
     extensions: ['.js', '.jsx'],

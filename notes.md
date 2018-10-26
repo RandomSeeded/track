@@ -17,7 +17,9 @@ I'm thinking different types of metrics:
 
 ### Misc feature requests:
 
-- deploy
+- reminders section (add phone / email)
+- something better for after you've answered the questions
+- canonical host url
 - a name for the project [longitude]
 - a description for the project
 - need to provide canonical host URL: right now frontend is hardcoding in 17792
@@ -53,6 +55,7 @@ Different things I want to track:
 - happiness (done) [done]
 - what activities? [done]
 - Checkbox questions [done]
+- deploy [done]
 
 ### Done backlog
 - need a front page & sign in with google prompt [done-ish]
