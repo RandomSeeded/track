@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Link, withRouter } from 'react-router-dom';
 import { Today } from './today';
 import { Questions } from './questions';
 import { Answers } from './answers';
+import { Reminders } from './reminders';
 
 class StyledLink extends React.Component {
   render() {
@@ -35,6 +36,7 @@ class Nav extends React.Component {
               <StyledLink to="/today" text="Today's Questions" pathname={this.props.location.pathname} handleLinkClick={this.handleLinkClick.bind(this)}/>
               <StyledLink to="/questions" text="Edit Questions" pathname={this.props.location.pathname} handleLinkClick={this.handleLinkClick.bind(this)}/>
               <StyledLink to="/answers" text="View Answers" pathname={this.props.location.pathname} handleLinkClick={this.handleLinkClick.bind(this)}/>
+              <StyledLink to="/reminders" text="Set up reminders" pathname={this.props.location.pathname} handleLinkClick={this.handleLinkClick.bind(this)}/>
             </div>
           </div>
         </nav>
@@ -43,6 +45,7 @@ class Nav extends React.Component {
           <Route path="/today" component={Today}/>
           <Route path="/questions" component={Questions}/>
           <Route path="/answers" component={Answers}/>
+          <Route path="/reminders" component={Reminders}/>
         </div>
       </div>
     );
