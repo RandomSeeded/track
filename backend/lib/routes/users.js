@@ -11,7 +11,7 @@ app.post('/phone-number',
   ensureAuthenticated,
   expressValidation({
     body: {
-      phoneNumber: Joi.number().required(),
+      phoneNumber: Joi.string().required(),
     },
   }),
   async (req, res) => {
