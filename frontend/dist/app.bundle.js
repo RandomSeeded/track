@@ -6103,7 +6103,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! /Users/nate/Projects/track/frontend/src/js/client.js */\"./src/js/client.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/client.js?");
+eval("module.exports = __webpack_require__(/*! /home/nate/Projects/track/frontend/src/js/client.js */\"./src/js/client.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/client.js?");
 
 /***/ })
 
