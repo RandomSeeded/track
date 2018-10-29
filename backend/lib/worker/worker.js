@@ -17,7 +17,7 @@ const questionModel = require('../models/questionModel');
 const twilio = require('../external/twilio');
 
 async function sendAlert(task) {
-  // You actually don't even need the question for now. Just send them a link to the home page. Bam. Done. The home page will be responsible for figuring out what the questions are.
+  // TODO (nw): look up phone numbers from user model
   twilio.sendSMS('A link to the service would go here', '+18456610558');
 }
 
