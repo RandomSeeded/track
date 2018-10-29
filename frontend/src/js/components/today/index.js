@@ -7,7 +7,7 @@ import { QUESTION_TYPES } from '../../definitions/QuestionTypes';
 class SubmitButton extends React.Component {
   render() {
     const disable = _.isEmpty(this.props.questions) || _.some(this.props.questions, question => !_.has(question, 'answer'));
-    return (<button type="submit" disabled={disable} className="button is-success">Answer</button>);
+    return (<button type="submit" disabled={disable} className="button is-primary">Answer</button>);
   }
 }
 

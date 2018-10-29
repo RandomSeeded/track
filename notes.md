@@ -18,9 +18,12 @@ I'm thinking different types of metrics:
 ### Misc feature requests:
 
 - reminders need to look up phone numbers instead of sending all texts to me
+- reminders don't actually follow the 6pm EST functionality right now
 - reminders need to have unsubscribe functionality
 - reminders should be more customizeable
-- something better for after you've answered the questions
+- reminders should have a link to the service
+- setting a phone number should make it clear that it's been set (disable save button? display current phone number on record?)
+- something better for after you've answered the questions (currently: 'all done')
 - a description for the project
 - reordering of questions
 - ordering of answers matches order of questions
