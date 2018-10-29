@@ -17,11 +17,13 @@ I'm thinking different types of metrics:
 
 ### Misc feature requests:
 
-- reminders need to look up phone numbers instead of sending all texts to me
+- answers page should work before any answers saved [blocker]
+- should be able to add multiple questions without shit breaking [blocker]
+- reminders need to look up phone numbers instead of sending all texts to me [blocker]
 - reminders don't actually follow the 6pm EST functionality right now
 - reminders need to have unsubscribe functionality
 - reminders should be more customizeable
-- reminders should have a link to the service
+- reminders should have a link to the service [blocker]
 - setting a phone number should make it clear that it's been set (disable save button? display current phone number on record?)
 - something better for after you've answered the questions (currently: 'all done')
 - a description for the project
@@ -30,7 +32,7 @@ I'm thinking different types of metrics:
 - non-google auths
 - favicons
 - a logo
-- multiple select for tags questions
+- multiple select for tags questions [e.g: what activities did you do today? would be good to be able to select multiple]
 - How do you want to handle deleted questions? Do you want to display data for those deleted questions when you look at those previous days or not?
 - TESTS TESTS TESTS (need this)
 - Conditional questions
