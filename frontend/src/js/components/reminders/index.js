@@ -6,6 +6,7 @@ export class Reminders extends React.Component {
     super(props);
     this.state = {
       phoneNumber: '',
+      submitting: false,
     };
   }
 
@@ -19,7 +20,7 @@ export class Reminders extends React.Component {
               <input className="input" onChange={this.handleChange.bind(this)} value={this.state.phoneNumber} placeholder="+1 234 567 8901"/>
             </div>
             <div className="field">
-              <button className="button is-primary" type="submit">Save</button>
+              <button className={`button is-primary ${this.state.submitting && 'is-loading'}`} type="submit">Save</button>
             </div>
           </form>
         </div>
@@ -40,8 +41,14 @@ export class Reminders extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    this.setState({
+      submitting: true,
+    });
     const phoneNumber = this.state.phoneNumber;
     const body = { phoneNumber };
     await axios.post('/api/users/phone-number', body);
+    this.setState({
+      submitting: false,
+    });
   }
 }
