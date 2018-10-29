@@ -17,19 +17,15 @@ I'm thinking different types of metrics:
 
 ### Misc feature requests:
 
-- reminders section (add phone / email)
+- reminders need to look up phone numbers instead of sending all texts to me
+- reminders should be more customizeable
 - something better for after you've answered the questions
-- canonical host url
-- a name for the project [longitude]
 - a description for the project
-- need to provide canonical host URL: right now frontend is hardcoding in 17792
-- and you can't just use relative because then you're hitting webpack dev server
 - reordering of questions
 - ordering of answers matches order of questions
 - non-google auths
 - favicons
 - a logo
-- deploy
 - multiple select for tags questions
 - How do you want to handle deleted questions? Do you want to display data for those deleted questions when you look at those previous days or not?
 - TESTS TESTS TESTS (need this)
@@ -60,3 +56,7 @@ Different things I want to track:
 ### Done backlog
 - need a front page & sign in with google prompt [done-ish]
 - Mark active page in navbar [done]
+- reminders section (add phone / email) [done]
+- a name for the project [longitude] [done]
+- canonical host url [done]
+- deploy [done]
