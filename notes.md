@@ -18,6 +18,7 @@ I'm thinking different types of metrics:
 ### Misc feature requests:
 
 - reminders need to look up phone numbers instead of sending all texts to me
+- reminders need to have unsubscribe functionality
 - reminders should be more customizeable
 - something better for after you've answered the questions
 - a description for the project
