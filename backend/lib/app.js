@@ -71,6 +71,7 @@ app.get('/api/is-authenticated',
 app.use('/api/reminder', require('./routes/reminder'));
 app.use('/api/questions', require('./routes/questions'));
 app.use('/api/answers', require('./routes/answers'));
+app.use('/api/users', require('./routes/users'));
 
 app.use(express.static(path.join(__dirname, '../../frontend/dist/')));
 app.get('*', (req, res, next) =>
