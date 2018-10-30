@@ -11,11 +11,11 @@ export class FrontPage extends React.Component {
 
   render() {
     return (
-      <section className="hero is-fullheight is-primary">
-        <div className="hero-body">
-          <div className="container">
-            <h1 className="title">Longitude8</h1>
-            <h2 className="subtitle">A description of this project</h2>
+      <section className="hero is-primary is-medium is-fullheight">
+	<div className="hero-body">
+	  <div className="container has-text-centered">
+	    <h1 className="title is-1">Longitude</h1>
+	    <h2 className="subtitle">Subtitle goes here</h2>
             <a href="/auth/google" onClick={this.handleGoogleButtonClick.bind(this)}>
               {!this.state.googleButtonPressed &&
                 <img src={GoogleSigninButton}/>
@@ -24,8 +24,8 @@ export class FrontPage extends React.Component {
                 <img src={GoogleSigninButtonPressed}/>
               }
             </a>
-          </div>
-        </div>
+	  </div>
+	</div>
       </section>
     );
   }

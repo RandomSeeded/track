@@ -17,6 +17,7 @@ I'm thinking different types of metrics:
 
 ### Misc feature requests:
 
+- need frontpage [have a better title, what else do you need? Images showing what it is. Collection of heros, probably]
 - need wizard / template [blocker]
 - reminders need to look up phone numbers instead of sending all texts to me [blocker]
 - reminders should have a link to the service [blocker]
@@ -32,7 +33,6 @@ I'm thinking different types of metrics:
 - ordering of answers matches order of questions
 - non-google auths
 - favicons
-- a logo
 - multiple select for tags questions [e.g: what activities did you do today? would be good to be able to select multiple]
 - How do you want to handle deleted questions? Do you want to display data for those deleted questions when you look at those previous days or not?
 - TESTS TESTS TESTS (need this)
@@ -69,3 +69,4 @@ Different things I want to track:
 - deploy [done]
 - answers page should work before any answers saved [blocker] [done]
 - should be able to add multiple questions without shit breaking [blocker]
+- a logo [done]
