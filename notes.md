@@ -17,14 +17,17 @@ I'm thinking different types of metrics:
 
 ### Misc feature requests:
 
+- need wizard / template [blocker]
 - answers page should work before any answers saved [blocker]
 - should be able to add multiple questions without shit breaking [blocker]
 - reminders need to look up phone numbers instead of sending all texts to me [blocker]
+- reminders should have a link to the service [blocker]
 - reminders don't actually follow the 6pm EST functionality right now
 - reminders need to have unsubscribe functionality
 - reminders should be more customizeable
-- reminders should have a link to the service [blocker]
 - setting a phone number should make it clear that it's been set (disable save button? display current phone number on record?)
+- when session expires something should happen - you shouldn't lose your progress in answering questions
+- need to add logs
 - something better for after you've answered the questions (currently: 'all done')
 - a description for the project
 - reordering of questions

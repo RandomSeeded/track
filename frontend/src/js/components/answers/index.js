@@ -58,6 +58,15 @@ export class Answers extends React.Component {
     };
   }
   render() {
+    if (_.isEmpty(this.state.answersWithQuestionsByDate)) {
+      return (
+        <div className="section">
+          <div className="box">
+            <p>Check back here after you've answered questions to review your previous answers!</p>
+          </div>
+        </div>
+      );
+    }
     const dates = _.sortBy(_.keys(this.state.answersWithQuestionsByDate));
     const currentDate = dates[this.state.currentDateIndex];
     const isFirstDate = this.state.currentDateIndex === 0;

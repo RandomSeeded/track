@@ -16,6 +16,8 @@ const reminderModel = require('../models/reminderModel');
 const questionModel = require('../models/questionModel');
 const twilio = require('../external/twilio');
 
+const TEN_MINUTES = 10 * 60 * 1000;
+
 async function sendAlert(task) {
   // TODO (nw): look up phone numbers from user model
   twilio.sendSMS('A link to the service would go here', '+18456610558');
@@ -39,7 +41,7 @@ async function run() {
 run();
 setInterval(() => {
   run();
-}, 60000);
+}, TEN_MINUTES);
 
 module.exports = {
   // For test only

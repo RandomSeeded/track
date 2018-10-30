@@ -14,15 +14,17 @@ export class Reminders extends React.Component {
     return (
       <div>
         <div className="section">
-          <form onSubmit={this.handleSubmit.bind(this)}>
-            <div className="field">
-              <label className="label">What's your phone #?</label>
-              <input className="input" onChange={this.handleChange.bind(this)} value={this.state.phoneNumber} placeholder="+1 234 567 8901"/>
-            </div>
-            <div className="field">
-              <button className={`button is-primary ${this.state.submitting && 'is-loading'}`} type="submit">Save</button>
-            </div>
-          </form>
+          <div className="box">
+            <form onSubmit={this.handleSubmit.bind(this)}>
+              <div className="field">
+                <label className="label">What's your phone #?</label>
+                <input className="input" onChange={this.handleChange.bind(this)} value={this.state.phoneNumber} placeholder="+1 234 567 8901"/>
+              </div>
+              <div className="field">
+                <button className={`button is-primary ${this.state.submitting && 'is-loading'}`} type="submit">Save</button>
+              </div>
+            </form>
+          </div>
         </div>
         <div className="section">
           <p>We'll send you a reminder to fill out your questions every day at 6PM EST.</p>

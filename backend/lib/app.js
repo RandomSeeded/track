@@ -8,6 +8,7 @@ const express = require('express');
 const fs = require('fs');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const moment = require('moment');
+const morgan = require('morgan');
 const passport = require('passport');
 const path = require('path');
 const util = require('util');
@@ -51,6 +52,7 @@ passport.use(new googleStrategy({
 
 // CORS from webpack dev server
 app.use(cors());
+app.use(morgan('tiny'));
 
 app.get('/auth/google', 
   passport.authenticate('google', { scope: ['profile'] }));

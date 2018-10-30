@@ -28,12 +28,14 @@ export class Today extends React.Component {
   render() {
     const form = (
       <div className="section">
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          {this.state.questions.map((question, i) =>
-            <IndividualQuestion question={question} key={i} handleChange={this.handleChange.bind(this, i)}/>
-          )}
-          <SubmitButton questions={this.state.questions}/>
-        </form>
+        <div className="box">
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            {this.state.questions.map((question, i) =>
+              <IndividualQuestion question={question} key={i} handleChange={this.handleChange.bind(this, i)}/>
+            )}
+            <SubmitButton questions={this.state.questions}/>
+          </form>
+        </div>
       </div>
     );
     const allDone = (
