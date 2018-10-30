@@ -18,8 +18,6 @@ I'm thinking different types of metrics:
 ### Misc feature requests:
 
 - need wizard / template [blocker]
-- answers page should work before any answers saved [blocker]
-- should be able to add multiple questions without shit breaking [blocker]
 - reminders need to look up phone numbers instead of sending all texts to me [blocker]
 - reminders should have a link to the service [blocker]
 - reminders don't actually follow the 6pm EST functionality right now
@@ -69,3 +67,5 @@ Different things I want to track:
 - a name for the project [longitude] [done]
 - canonical host url [done]
 - deploy [done]
+- answers page should work before any answers saved [blocker] [done]
+- should be able to add multiple questions without shit breaking [blocker]

@@ -28,7 +28,7 @@ export class Questions extends React.Component {
     return (
       <div className="section">
         {_.map(this.state.questions, (question, i) =>
-          <QuestionForm question={question} key={uuid.v4()} listId={i} removeQuestion={this.removeQuestion.bind(this)}/>
+          <QuestionForm question={question} key={question._id || question.placeholderId} listId={i} removeQuestion={this.removeQuestion.bind(this)}/>
         )}
         <NewQuestionButton addQuestion={this.addQuestion.bind(this)}/>
       </div>
@@ -45,7 +45,7 @@ export class Questions extends React.Component {
 
   addQuestion() {
     this.setState({
-      questions: [...this.state.questions, { text: 'Whats your question?' }],
+      questions: [...this.state.questions, { placeholderId: uuid.v4() }],
     });
   }
 

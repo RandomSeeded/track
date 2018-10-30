@@ -39,9 +39,10 @@ export class QuestionForm extends React.Component {
     const questionId = _.get(question, '_id');
     const tags = _.get(question, 'tags', []);
     const type = question.type || QUESTION_TYPES[DEFAULT_QUESTION_TYPE];
+    const text = question.text || 'What\'s your question?';
     this.state = {
       questionId,
-      text: question.text,
+      text,
       type,
       submitted: !!questionId,
       tags,
@@ -145,18 +146,22 @@ export class QuestionForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
 
-    const postQuestionsUrl = this.state.submitted
-      ?  `/api/questions/${this.state.questionId}`
-      : '/api/questions/';
-
     const body = _.pickBy({
       text: this.state.text,
       type: this.state.type,
       tags: this.state.type === QUESTION_TYPES.VALUES && this.state.tags,
     });
 
-    const res = await axios.post(postQuestionsUrl, body);
+    if (!this.state.submitted) {
+      const { data } = await axios.post('/api/questions/', body);
+      return this.setState({
+        questionId: data._id,
+        submitted: true,
+        modified: false,
+      });
+    }
 
+    await axios.post(`/api/questions/${this.state.questionId}`);
     this.setState({
       submitted: true,
       modified: false,

@@ -39,8 +39,9 @@ app.post('/',
     const type = req.body.type;
     // Known minor bug - could add tags to non-values question. NBD.
     const tags = req.body.tags;
-    questionModel.add({ _id: uuid.v4(), user, text, type, tags });
-    res.sendStatus(200);
+    const _id = uuid.v4();
+    questionModel.add({ _id, user, text, type, tags });
+    res.send({ _id });
   });
 
 app.post('/:id',
