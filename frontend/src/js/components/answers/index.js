@@ -24,6 +24,21 @@ class AnswerChooser extends React.Component {
   }
 }
 
+class ColumnOfAnswers extends React.Component {
+  render() {
+    return (
+      <div className="tile is-parent is-4 is-vertical">
+        {_.map(this.props.answers, (answer, i) =>
+          <article className="tile is-child notification">
+            <p className="title">{answer.question.text}</p>
+            <p className="subtitle">{answer.answer}</p>
+          </article>
+        )}
+      </div>
+    );
+  }
+}
+
 class IndividualAnswer extends React.Component {
   render() {
     // TODO (nw): sort these by the order that they're on on the user page? Not sure. Aka question added at.
@@ -33,30 +48,9 @@ class IndividualAnswer extends React.Component {
     }, [[],[],[]]);
     return (
       <div className="tile is-ancestor">
-        <div className="tile is-parent is-4 is-vertical">
-          {_.map(firstCol, (answer, i) =>
-            <article className="tile is-child notification">
-              <p className="title">{answer.question.text}</p>
-              <p className="subtitle">{answer.answer}</p>
-            </article>
-          )}
-        </div>
-        <div className="tile is-parent is-4 is-vertical">
-          {_.map(secondCol, (answer, i) =>
-            <article className="tile is-child notification">
-              <p className="title">{answer.question.text}</p>
-              <p className="subtitle">{answer.answer}</p>
-            </article>
-          )}
-        </div>
-        <div className="tile is-parent is-4 is-vertical">
-          {_.map(thirdCol, (answer, i) =>
-            <article className="tile is-child notification">
-              <p className="title">{answer.question.text}</p>
-              <p className="subtitle">{answer.answer}</p>
-            </article>
-          )}
-        </div>
+        <ColumnOfAnswers answers={firstCol}/>
+        <ColumnOfAnswers answers={secondCol}/>
+        <ColumnOfAnswers answers={thirdCol}/>
       </div>
     );
   }
