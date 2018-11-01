@@ -26,6 +26,7 @@ I'm thinking different types of metrics:
 - reminders need to have unsubscribe functionality
 - reminders should be more customizeable
 - setting a phone number should make it clear that it's been set (disable save button? display current phone number on record?)
+- edit previous answers
 - when session expires something should happen - you shouldn't lose your progress in answering questions
 - need to add logs
 - something better for after you've answered the questions (currently: 'all done')
