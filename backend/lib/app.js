@@ -23,7 +23,7 @@ const {
 } = require('./secrets');
 const worker = require('./worker/worker');
 
-const PORT = 17792;
+const { PORT } = require('./config');
 
 const app = express();
 
