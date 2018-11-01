@@ -161,7 +161,7 @@ export class QuestionForm extends React.Component {
       });
     }
 
-    await axios.post(`/api/questions/${this.state.questionId}`);
+    await axios.post(`/api/questions/${this.state.questionId}`, body);
     this.setState({
       submitted: true,
       modified: false,
