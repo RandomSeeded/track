@@ -5,6 +5,4 @@ backend/tasklist/
 **/tags
 **/*.env
 secrets/
-*.swp
-*.swo
-*.swm
+*.sw*
