@@ -28,22 +28,35 @@ class IndividualAnswer extends React.Component {
   render() {
     // TODO (nw): sort these by the order that they're on on the user page? Not sure. Aka question added at.
     const sortedAnswers = _.sortBy(this.props.answers, 'question.text');
+    const [firstCol, secondCol, thirdCol] = _.transform(sortedAnswers, (acc, answer, i) => {
+      acc[i%3].push(answer);
+    }, [[],[],[]]);
     return (
-      <div>
-        {_.map(sortedAnswers, (answer, i) => 
-          <div className="box" key={i}>
-            <div className="level">
-              <div className="level-item">
-                <h2 className="subtitle">{answer.question.text}</h2>
-              </div>
-            </div>
-            <div className="level">
-              <div className="level-item">
-                <p>{answer.answer}</p>
-              </div>
-            </div>
-          </div>
-        )}
+      <div className="tile is-ancestor">
+        <div className="tile is-parent is-4 is-vertical">
+          {_.map(firstCol, (answer, i) =>
+            <article className="tile is-child notification">
+              <p className="title">{answer.question.text}</p>
+              <p className="subtitle">{answer.answer}</p>
+            </article>
+          )}
+        </div>
+        <div className="tile is-parent is-4 is-vertical">
+          {_.map(secondCol, (answer, i) =>
+            <article className="tile is-child notification">
+              <p className="title">{answer.question.text}</p>
+              <p className="subtitle">{answer.answer}</p>
+            </article>
+          )}
+        </div>
+        <div className="tile is-parent is-4 is-vertical">
+          {_.map(thirdCol, (answer, i) =>
+            <article className="tile is-child notification">
+              <p className="title">{answer.question.text}</p>
+              <p className="subtitle">{answer.answer}</p>
+            </article>
+          )}
+        </div>
       </div>
     );
   }
