@@ -18,6 +18,7 @@ I'm thinking different types of metrics:
 ### Misc feature requests:
 
 - fix port [blocker]
+- migrate from fargate to ec2 (way cheaper)
 - need frontpage [have a better title, what else do you need? Images showing what it is. Collection of heros, probably]
 - need wizard / template [blocker]
 - reminders need to look up phone numbers instead of sending all texts to me [blocker]
