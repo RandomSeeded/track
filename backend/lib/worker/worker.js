@@ -18,13 +18,13 @@ const userModel = require('../models/userModel');
 const twilio = require('../external/twilio');
 
 const TEN_MINUTES = 10 * 60 * 1000;
-const { PORT } = require('../config');
+const { PORT, FRIENDLY_URL } = require('../config');
 
 async function sendAlert(task) {
   // TODO (nw): look up phone numbers from user model
   const { user } = task;
   const userForAlert = _.first(await userModel.query(user));
-  twilio.sendSMS(`Fill out your questions! http://longitude.cc:${PORT}`, userForAlert.phoneNumber);
+  twilio.sendSMS(`Fill out your questions! ${FRIENDLY_URL}`, userForAlert.phoneNumber);
 }
 
 async function run() {
