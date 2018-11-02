@@ -20,8 +20,8 @@ I'm thinking different types of metrics:
 - fix port [blocker]
 - migrate from fargate to ec2 (way cheaper)
 - need frontpage [have a better title, what else do you need? Images showing what it is. Collection of heros, probably]
+- phone numbers should get formatted correctly automatically [blocker]
 - need wizard / template [blocker]
-- reminders need to look up phone numbers instead of sending all texts to me [blocker]
 - reminders should have a link to the service [blocker]
 - reminders don't actually follow the 6pm EST functionality right now
 - reminders need to have unsubscribe functionality
@@ -74,3 +74,4 @@ Different things I want to track:
 - should be able to add multiple questions without shit breaking [blocker]
 - a logo [done]
 - display of long freeform answers goes off page [blocker] [done]
+- reminders need to look up phone numbers instead of sending all texts to me [blocker]

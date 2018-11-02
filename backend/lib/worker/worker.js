@@ -14,6 +14,7 @@ const { TASK_LIST_FILENAME } = require('../definitions/tasklist');
 const taskList = require('../util/taskList');
 const reminderModel = require('../models/reminderModel');
 const questionModel = require('../models/questionModel');
+const userModel = require('../models/userModel');
 const twilio = require('../external/twilio');
 
 const TEN_MINUTES = 10 * 60 * 1000;
@@ -21,7 +22,9 @@ const { PORT } = require('../config');
 
 async function sendAlert(task) {
   // TODO (nw): look up phone numbers from user model
-  twilio.sendSMS(`Fill out your questions! http://longitude.cc:${PORT}`, '+18456610558');
+  const { user } = task;
+  const userForAlert = _.first(await userModel.query(user));
+  twilio.sendSMS(`Fill out your questions! http://longitude.cc:${PORT}`, userForAlert.phoneNumber);
 }
 
 async function run() {

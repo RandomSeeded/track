@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const expressValidation = require('express-validation');
 const Joi = require('joi');
+const libPhoneNumber = require('libphonenumber-js');
 
 const { ensureAuthenticated } = require('../util/authUtils');
 const userController = require('../controllers/userController');
@@ -18,7 +19,13 @@ app.post('/phone-number',
   async (req, res) => {
     const user = req.user;
     const { phoneNumber } = req.body;
-    userController.addOrUpdatePhoneNumber(user, phoneNumber);
+    const formattedPhoneNumber = (phoneNumber => {
+      if (_.first(phoneNumber) === '+') {
+        return libPhoneNumber.parsePhoneNumber(phoneNumber).number;
+      }
+      return libPhoneNumber.parsePhoneNumber(phoneNumber, 'US').number;
+    })(phoneNumber);
+    userController.addOrUpdatePhoneNumber(user, formattedPhoneNumber);
     /*
      * TODO (nw): make reminders more customizeable
      * In current state, just add a reminder whenever a phone number is added.
