@@ -17,7 +17,6 @@ I'm thinking different types of metrics:
 
 ### Misc feature requests:
 
-- ssl [blocker]
 - fix port [blocker]
 - migrate from fargate to ec2 (way cheaper)
 - need frontpage [have a better title, what else do you need? Images showing what it is. Collection of heros, probably]
@@ -76,3 +75,4 @@ Different things I want to track:
 - a logo [done]
 - display of long freeform answers goes off page [blocker] [done]
 - reminders need to look up phone numbers instead of sending all texts to me [blocker]
+- ssl [blocker]
