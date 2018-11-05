@@ -7,7 +7,7 @@ export class IndividualAnswer extends React.Component {
             <p className="card-header-title">{this.props.text}</p>
             <a className="card-header-icon">
               <span className="icon">
-                <i className="fas fa-angle-down"/>
+                <i className="fas fa-pencil-alt"/>
               </span>
             </a>
           </header>
