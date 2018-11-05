@@ -3,7 +3,7 @@ export class IndividualAnswer extends React.Component {
     return (
       <div className="tile is-child">
         <div className="card">
-          <header className="card-header">
+          <header className="card-header has-background-grey-lighter">
             <p className="card-header-title">{this.props.text}</p>
             <a className="card-header-icon">
               <span className="icon">
