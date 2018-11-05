@@ -2,15 +2,21 @@ export class IndividualAnswer extends React.Component {
   render() {
     return (
       <div className="tile is-child">
-        <article className="message is-info">
-          <div className="message-header">
-            {this.props.text}
-            <button className="delete"/>
+        <div className="card">
+          <header className="card-header">
+            <p className="card-header-title">{this.props.text}</p>
+            <a className="card-header-icon">
+              <span className="icon">
+                <i className="fas fa-angle-down"/>
+              </span>
+            </a>
+          </header>
+          <div className="card-content">
+            <div className="content">
+              <p>{this.props.answer}</p>
+            </div>
           </div>
-          <div className="message-body">
-            {this.props.answer}
-          </div>
-        </article>
+        </div>
       </div>
     );
   }
