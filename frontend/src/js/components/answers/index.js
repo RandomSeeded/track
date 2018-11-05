@@ -29,10 +29,17 @@ class ColumnOfAnswers extends React.Component {
     return (
       <div className="tile is-parent is-4 is-vertical">
         {_.map(this.props.answers, (answer, i) =>
-          <article className="tile is-child notification" key={i}>
-            <p className="title">{answer.question.text}</p>
-            <p className="subtitle">{answer.answer}</p>
-          </article>
+          <div className="tile is-child" key={i}>
+            <article className="message is-info">
+              <div className="message-header">
+                {answer.question.text}
+                <button className="delete"/>
+              </div>
+              <div className="message-body">
+                {answer.answer}
+              </div>
+            </article>
+          </div>
         )}
       </div>
     );
