@@ -1,67 +1,7 @@
 import * as _ from 'lodash';
-import { format, prase } from 'date-fns';
 
-class AnswerChooser extends React.Component {
-  render() {
-    const currentDate = format(Number(this.props.currentDate), 'MM/DD/YY hh:mm A');
-    return (
-      <div className="level is-mobile">
-        <div className="buttons has-addons level-item">
-          <a className="button" disabled={this.props.isFirstDate} onClick={this.props.handlePrevDate}>
-            <span className="icon">
-              <i className="fas fa-chevron-left"/>
-            </span>
-          </a>
-          <span className="button is-primary">{currentDate}</span>
-          <a className="button" disabled={this.props.isLastDate} onClick={this.props.handleNextDate}>
-            <span className="icon">
-              <i className="fas fa-chevron-right"/>
-            </span>
-          </a>
-        </div>
-      </div>
-    );
-  }
-}
-
-class ColumnOfAnswers extends React.Component {
-  render() {
-    return (
-      <div className="tile is-parent is-4 is-vertical">
-        {_.map(this.props.answers, (answer, i) =>
-          <div className="tile is-child" key={i}>
-            <article className="message is-info">
-              <div className="message-header">
-                {answer.question.text}
-                <button className="delete"/>
-              </div>
-              <div className="message-body">
-                {answer.answer}
-              </div>
-            </article>
-          </div>
-        )}
-      </div>
-    );
-  }
-}
-
-class IndividualAnswer extends React.Component {
-  render() {
-    // TODO (nw): sort these by the order that they're on on the user page? Not sure. Aka question added at.
-    const sortedAnswers = _.sortBy(this.props.answers, 'question.text');
-    const [firstCol, secondCol, thirdCol] = _.transform(sortedAnswers, (acc, answer, i) => {
-      acc[i%3].push(answer);
-    }, [[],[],[]]);
-    return (
-      <div className="tile is-ancestor">
-        <ColumnOfAnswers answers={firstCol}/>
-        <ColumnOfAnswers answers={secondCol}/>
-        <ColumnOfAnswers answers={thirdCol}/>
-      </div>
-    );
-  }
-}
+import { AnswerChooser } from './AnswerChooser';
+import { AnswersForSpecifiedDate } from './AnswersForSpecifiedDate';
 
 export class Answers extends React.Component {
   constructor(props) {
@@ -88,7 +28,7 @@ export class Answers extends React.Component {
     return (
       <div className="section">
         <AnswerChooser currentDate={currentDate} handleNextDate={this.handleNextDate.bind(this)} handlePrevDate={this.handlePrevDate.bind(this)} isFirstDate={isFirstDate} isLastDate={isLastDate}/>
-        <IndividualAnswer answers={this.state.answersWithQuestionsByDate[currentDate]}/>
+        <AnswersForSpecifiedDate answers={this.state.answersWithQuestionsByDate[currentDate]}/>
       </div>
     );
   }
