@@ -35,6 +35,22 @@ app.post('/',
     res.sendStatus(200);
   });
 
+// TODO (nw): do you want to patch (diff) or put (update entirely?)
+// Probably just replace entirely
+app.patch('/:id',
+  ensureAuthenticated,
+  expressValidation({
+    body: {
+      questionId: Joi.string().guid().required(),
+      answer: Joi.string().required(),
+      answeredAt: Joi.date().required(),
+    },
+  }),
+  async function(req, res, next) {
+    // TODO (nw): this
+    res.sendStatus(200);
+  });
+
 app.get('/by-date',
   ensureAuthenticated,
   async (req, res, next) => {

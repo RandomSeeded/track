@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 
 import { AnswerChooser } from './AnswerChooser';
 import { AnswersForSpecifiedDate } from './AnswersForSpecifiedDate';
+import { EditAnswerModal } from './EditAnswerModal';
 
 export class Answers extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export class Answers extends React.Component {
       <div className="section">
         <AnswerChooser currentDate={currentDate} handleNextDate={this.handleNextDate.bind(this)} handlePrevDate={this.handlePrevDate.bind(this)} isFirstDate={isFirstDate} isLastDate={isLastDate}/>
         <AnswersForSpecifiedDate answers={this.state.answersWithQuestionsByDate[currentDate]}/>
+        <EditAnswerModal/>
       </div>
     );
   }
@@ -45,6 +47,15 @@ export class Answers extends React.Component {
     this.setState({
       currentDateIndex,
     });
+  }
+
+  openEditModal() {
+  }
+
+  closeDeleteModal() {
+  }
+
+  handleEdit() {
   }
 
   async componentDidMount() {

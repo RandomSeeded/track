@@ -7,7 +7,7 @@ class ColumnOfAnswers extends React.Component {
     return (
       <div className="tile is-parent is-4 is-vertical">
         {_.map(this.props.answers, (answer, i) =>
-          <IndividualAnswer key={i} text={answer.question.text} answer={answer.answer}/>
+          <IndividualAnswer key={answer._id} text={answer.question.text} answer={answer.answer}/>
         )}
       </div>
     );
