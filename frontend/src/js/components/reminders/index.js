@@ -1,6 +1,8 @@
 import * as _ from 'lodash';
 import * as axios from 'axios';
 
+import { AsYouType } from 'libphonenumber-js';
+
 export class Reminders extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +14,7 @@ export class Reminders extends React.Component {
   }
 
   render() {
+    const phoneNumber = new AsYouType().input(this.state.phoneNumber);
     return (
       <div>
         <div className="section">
@@ -19,7 +22,7 @@ export class Reminders extends React.Component {
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="field">
                 <label className="label">What's your phone #?</label>
-                <input className="input" onChange={this.handleChange.bind(this)} value={this.state.phoneNumber} placeholder="+1 234 567 8901"/>
+                <input className="input" onChange={this.handleChange.bind(this)} value={phoneNumber} placeholder="+1 234 567 8901"/>
               </div>
               <div className="field">
                 <button className={`button is-primary ${this.state.submitting && 'is-loading'}`} disabled={!this.state.modified} type="submit">Save</button>

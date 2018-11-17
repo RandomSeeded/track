@@ -19,7 +19,6 @@ I'm thinking different types of metrics:
 
 - migrate from fargate to ec2 (way cheaper)
 - need frontpage [have a better title, what else do you need? Images showing what it is. Collection of heros, probably]
-- phone numbers should get formatted correctly automatically [blocker]
 - need wizard / template [blocker]
 - reminders should have a link to the service [blocker]
 - reminders don't actually follow the 6pm EST functionality right now
@@ -76,3 +75,4 @@ Different things I want to track:
 - reminders need to look up phone numbers instead of sending all texts to me [blocker]
 - ssl [blocker]
 - fix port [blocker] [done]
+- phone numbers should get formatted correctly automatically [blocker]
