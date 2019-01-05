@@ -9,23 +9,22 @@ export class RetriesFields extends React.Component {
       return null;
     }
 
-    return (
-      <div className="field">
+    return [
+      <div className="field" key='1'>
+        <label className="label">Number of follow-ups?</label>
+        <input className="input" onChange={this.props.handleMaxRetriesChange} value={this.props.maxRetries} placeholder="+1 234 567 8901"/>
+      </div>,
+      <div className="field" key='2'>
         <label className="label">Number of follow-ups?</label>
         <input className="input" onChange={this.props.handleMaxRetriesChange} value={this.props.maxRetries} placeholder="+1 234 567 8901"/>
       </div>
-    );
-    //         <div className="field">
-    //           <label className="label">How long to snooze between reminders?</label>
-    //           <input className="input" onChange={this.handleRetryTimeoutChange.bind(this)} value={phoneNumber} placeholder="+1 234 567 8901"/>
-    //         </div>
+    ];
   }
 }
 
 export class Reminders extends React.Component {
   constructor(props) {
     super(props);
-    // TODO (nw): you need to be setting state of the enable/disable bit here.
     this.state = {
       phoneNumber: '',
       retryTimeout: 0,
@@ -128,15 +127,16 @@ export class Reminders extends React.Component {
     });
   }
 
-  // TODO (nw): you also need to set the enable/disable bit here (depending on what we get)
   async componentDidMount() {
     const res = await fetch('/api/users/phone-number');
     const { phoneNumber, attempt, maxRetries, retryTimeout } = await res.json();
+    const enabled = !!maxRetries;
     this.setState({
       phoneNumber,
       attempt,
       maxRetries,
       retryTimeout,
+      enabled,
       modified: false,
     });
   }
