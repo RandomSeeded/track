@@ -21,7 +21,6 @@ const TEN_MINUTES = 10 * 60 * 1000;
 const { PORT, FRIENDLY_URL } = require('../config');
 
 async function sendAlert(task) {
-  // TODO (nw): look up phone numbers from user model
   const { user } = task;
   const userForAlert = _.first(await userModel.query(user));
   twilio.sendSMS(`Fill out your questions! ${FRIENDLY_URL}`, userForAlert.phoneNumber);
@@ -32,6 +31,9 @@ async function run() {
   const tasksWithNewTimes = _.map(tasksToRun, task => {
     return _.defaults({
       nextTime: moment(task.nextTime).add(24, 'hours').valueOf(),
+      attempt: 0,
+      maxRetries: 0,
+      retryTimeout: 0,
       _id: uuid.v4(),
     }, task);
   });
