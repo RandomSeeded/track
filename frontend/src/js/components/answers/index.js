@@ -50,17 +50,7 @@ export class Answers extends React.Component {
     });
   }
 
-  // I thik the general strategy is: 
-  // This gets called by the component in question, with the answer in question. 
-  // We then update the state of the parent (this component)
-  // Updating the state of this parent will cause the relevant child to re-render
   openEditModal(answerId) {
-    // Below code DOES WORK to get appropriate question. PITA (and fragile) though.
-    // const answersWithQuestionsByDate = _.cloneDeep(this.state.answersWithQuestionsByDate);
-    // const answer = _.find(_.find(answersWithQuestionsByDate, date => {
-    //   return _.find(date, answer => answer._id === answerId);
-    // }), answer => answer._id === answerId);
-    // answer.answer = "TEMP";
     this.setState({
       editAnswerModalOpen: true,
     });
