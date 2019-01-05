@@ -1,12 +1,12 @@
 export class EditAnswerModal extends React.Component {
   render() {
     return (
-      <div className="modal">
-        <div className="modal-background"/>
+      <div className={`modal ${this.props.opened && 'is-active'}`}>
+        <div className="modal-background" onClick={this.props.closeEditModal}/>
         <div className="modal-content">
           <div className="box">
             <div className="field">
-              <label className="label">Thingy hmmmm</label>
+              <label className="label">This modal hasn't been implemented yet</label>
             </div>
             <div className="field is-grouped is-grouped-right">
               <div className="control">
@@ -18,7 +18,7 @@ export class EditAnswerModal extends React.Component {
             </div>
           </div>
         </div>
-        <button className="modal-close is-large" aria-label="close"/>
+        <button className="modal-close is-large" aria-label="close" onClick={this.props.closeEditModal}/>
       </div>
     );
   }

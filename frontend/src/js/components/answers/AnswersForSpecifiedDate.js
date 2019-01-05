@@ -7,7 +7,7 @@ class ColumnOfAnswers extends React.Component {
     return (
       <div className="tile is-parent is-4 is-vertical">
         {_.map(this.props.answers, (answer, i) =>
-          <IndividualAnswer key={answer._id} text={answer.question.text} answer={answer.answer}/>
+          <IndividualAnswer key={answer._id} text={answer.question.text} answer={answer.answer} openEditModal={this.props.openEditModal} _id={answer._id}/>
         )}
       </div>
     );
@@ -23,9 +23,9 @@ export class AnswersForSpecifiedDate extends React.Component {
     }, [[],[],[]]);
     return (
       <div className="tile is-ancestor">
-        <ColumnOfAnswers answers={firstCol}/>
-        <ColumnOfAnswers answers={secondCol}/>
-        <ColumnOfAnswers answers={thirdCol}/>
+        <ColumnOfAnswers answers={firstCol} openEditModal={this.props.openEditModal}/>
+        <ColumnOfAnswers answers={secondCol} openEditModal={this.props.openEditModal}/>
+        <ColumnOfAnswers answers={thirdCol} openEditModal={this.props.openEditModal}/>
       </div>
     );
   }

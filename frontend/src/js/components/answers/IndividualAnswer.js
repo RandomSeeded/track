@@ -5,7 +5,7 @@ export class IndividualAnswer extends React.Component {
         <div className="card">
           <header className="card-header has-background-grey-lighter">
             <p className="card-header-title">{this.props.text}</p>
-            <a className="card-header-icon">
+            <a className="card-header-icon" onClick={() => this.props.openEditModal(this.props._id)}>
               <span className="icon">
                 <i className="fas fa-pencil-alt"/>
               </span>

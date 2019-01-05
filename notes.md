@@ -24,8 +24,7 @@ I'm thinking different types of metrics:
 - reminders don't actually follow the 6pm EST functionality right now
 - reminders need to have unsubscribe functionality
 - reminders should be more customizeable
-- setting a phone number should make it clear that it's been set (disable save button? display current phone number on record?)
-- edit previous answers
+- edit previous answers [blocker]
 - when session expires something should happen - you shouldn't lose your progress in answering questions
 - need to add logs
 - something better for after you've answered the questions (currently: 'all done')
@@ -76,3 +75,4 @@ Different things I want to track:
 - ssl [blocker]
 - fix port [blocker] [done]
 - phone numbers should get formatted correctly automatically [blocker]
+- setting a phone number should make it clear that it's been set (disable save button? display current phone number on record?) [done]
