@@ -12,12 +12,28 @@ export class RetriesFields extends React.Component {
     return [
       <div className="field" key='1'>
         <label className="label">Number of follow-ups?</label>
-        <input className="input" onChange={this.props.handleMaxRetriesChange} value={this.props.maxRetries} placeholder="+1 234 567 8901"/>
+        <div className="select">
+          <select onChange={this.props.handleMaxRetriesChange} value={this.props.maxRetries}>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
       </div>,
       <div className="field" key='2'>
-        <label className="label">Number of follow-ups?</label>
-        <input className="input" onChange={this.props.handleMaxRetriesChange} value={this.props.maxRetries} placeholder="+1 234 567 8901"/>
-      </div>
+        <label className="label">How long should you snooze for?</label>
+        <div className="select">
+          <select onChange={this.props.handleRetryTimeoutChange} value={this.props.retryTimeout}>
+            <option>1 hour</option>
+            <option>2 hours</option>
+            <option>3 hours</option>
+            <option>4 hours</option>
+            <option>5 hours</option>
+            <option>6 hours</option>
+          </select>
+        </div>
+      </div>,
     ];
   }
 }
