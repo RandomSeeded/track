@@ -29,25 +29,39 @@ export class Answers extends React.Component {
     const isLastDate = this.state.currentDateIndex === _.size(dates) - 1;
     return (
       <div className="section">
-        <AnswerChooser currentDate={currentDate} handleNextDate={this.handleNextDate.bind(this)} handlePrevDate={this.handlePrevDate.bind(this)} isFirstDate={isFirstDate} isLastDate={isLastDate}/>
+        <AnswerChooser
+          currentDate={currentDate}
+          handleNextDate={this.handleNextDate.bind(this)}
+          handlePrevDate={this.handlePrevDate.bind(this)}
+          handleFirstDate={this.handleFirstDate.bind(this)}
+          handleLastDate={this.handleLastDate.bind(this)}
+          isFirstDate={isFirstDate}
+          isLastDate={isLastDate}
+        />
         <AnswersForSpecifiedDate answers={this.state.answersWithQuestionsByDate[currentDate]} openEditModal={this.openEditModal.bind(this)}/>
         <EditAnswerModal opened={this.state.editAnswerModalOpen} closeEditModal={this.closeEditModal.bind(this)}/>
       </div>
     );
   }
 
+  handleFirstDate() {
+    const currentDateIndex = 0;
+    this.setState({ currentDateIndex });
+  }
+
+  handleLastDate() {
+    const currentDateIndex = _.size(this.state.answersWithQuestionsByDate)-1;
+    this.setState({ currentDateIndex });
+  }
+
   handleNextDate() {
     const currentDateIndex = Math.min(this.state.currentDateIndex + 1, _.size(this.state.answersWithQuestionsByDate)-1);
-    this.setState({
-      currentDateIndex,
-    });
+    this.setState({ currentDateIndex });
   }
 
   handlePrevDate() {
     const currentDateIndex = Math.max(this.state.currentDateIndex - 1, 0);
-    this.setState({
-      currentDateIndex,
-    });
+    this.setState({ currentDateIndex });
   }
 
   openEditModal(answerId) {
