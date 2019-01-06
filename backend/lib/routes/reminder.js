@@ -12,6 +12,7 @@ const { TASK_LIST_FILENAME } = require('../definitions/tasklist');
 const reminderModel = require('../models/reminderModel');
 const { ensureAuthenticated } = require('../util/authUtils');
 
+// TODO (nw): verify this is an orphaned route and delete it
 app.post('/',
   ensureAuthenticated,
   expressValidation({

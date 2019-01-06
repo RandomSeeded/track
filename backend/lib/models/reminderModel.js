@@ -13,11 +13,16 @@ async function query(query) {
 
 async function remove(id) {
   collection = collection || (await db()).collection('reminders');
-  return await collection.deleteOne({_id: id });
+  return await collection.deleteOne({ _id: id });
+}
+
+async function update(id, body) {
+  return await collection.updateOne({ _id: id }, { $set: body });
 }
 
 module.exports = {
   add,
   query,
   remove,
+  update,
 };

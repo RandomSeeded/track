@@ -105,7 +105,7 @@ export class Reminders extends React.Component {
 
   handleRetryTimeoutChange(event) {
     event.preventDefault();
-    const retryTimeout = event.target.value;
+    const retryTimeout = _.first(event.target.value);
     this.setState({
       retryTimeout,
       modified: true,
@@ -135,11 +135,11 @@ export class Reminders extends React.Component {
     this.setState({
       submitting: true,
     });
-    const phoneNumber = this.state.phoneNumber;
-    const body = { phoneNumber };
+    const body = _.pick(this.state, ['phoneNumber', 'retryTimeout', 'maxRetries']);
     await axios.post('/api/users/phone-number', body);
     this.setState({
       submitting: false,
+      modified: false,
     });
   }
 
