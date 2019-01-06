@@ -8,6 +8,7 @@ const libPhoneNumber = require('libphonenumber-js');
 const { ensureAuthenticated } = require('../util/authUtils');
 const userController = require('../controllers/userController');
 const reminderController = require('../controllers/reminderController');
+const reminderModel = require('../models/reminderModel');
 const userModel = require('../models/userModel');
 
 app.post('/phone-number',
@@ -37,12 +38,17 @@ app.post('/phone-number',
     res.sendStatus(200);
   });
 
+// TODO (nw): consolidate to a single model probably.
 app.get('/phone-number',
   ensureAuthenticated,
   async (req, res) => {
     const user = _.first(await userModel.query(req.user));
+    const reminder = _.first(await reminderModel.query({ user: req.user }));
     const { phoneNumber } = user;
-    res.send({ phoneNumber });
+    const { maxRetries, retryTimeout } = reminder;
+    const body = { phoneNumber, maxRetries, retryTimeout };
+    console.log('body', body);
+    res.send(body);
   });
 
 module.exports = app;

@@ -5,7 +5,7 @@ import { AsYouType } from 'libphonenumber-js';
 
 export class RetriesFields extends React.Component {
   render() {
-    if (!this.props.retriesEnabled) {
+    if (this.props.retriesEnabled === 'No') {
       return null;
     }
 
@@ -47,7 +47,7 @@ export class Reminders extends React.Component {
       maxRetries: 0,
       submitting: false,
       modified: false,
-      retriesEnabled: false,
+      retriesEnabled: 'No',
     };
   }
 
@@ -65,7 +65,7 @@ export class Reminders extends React.Component {
               <div className="field">
                 <label className="label">Send reminder follow-ups?</label>
                 <div className="select">
-                  <select onChange={this.handleRetryEnableChange.bind(this)}>
+                  <select onChange={this.handleRetryEnableChange.bind(this)} value={this.state.retriesEnabled}>
                     <option>No</option>
                     <option>Yes</option>
                   </select>
@@ -99,7 +99,8 @@ export class Reminders extends React.Component {
   }
 
   handleRetryEnableChange(event) {
-    const [maxRetries, retryTimeout, retriesEnabled] = event.target.value === 'Yes' ? [1, 1, true] : [0, 0, false];
+    const retriesEnabled = event.target.value;
+    const [maxRetries, retryTimeout] = retriesEnabled === 'Yes' ? [1, 1] : [0, 0];
     this.setState({ maxRetries, retryTimeout, retriesEnabled, modified: true });
   }
 
@@ -145,14 +146,15 @@ export class Reminders extends React.Component {
 
   async componentDidMount() {
     const res = await fetch('/api/users/phone-number');
-    const { phoneNumber, attempt, maxRetries, retryTimeout } = await res.json();
-    const enabled = !!maxRetries;
+    const body = await res.json();
+    const { phoneNumber, attempt, maxRetries, retryTimeout } = body;
+    const retriesEnabled = !!maxRetries ? 'Yes' : 'No';
     this.setState({
       phoneNumber,
       attempt,
       maxRetries,
       retryTimeout,
-      enabled,
+      retriesEnabled,
       modified: false,
     });
   }
